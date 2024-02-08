@@ -1,0 +1,12 @@
+.App {
+    height: 100%;
+    width: 100%;
+}
+
+.App div {
+    border: 1px solid black;
+}
+
+main {
+    padding: 10px;
+}
