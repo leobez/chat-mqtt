@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react'
 import styles from './Connections.module.css'
-import mqtt from 'mqtt'
 import useConnectToBroker from '../../Hooks/useConnectToBroker'
+import useSubscribeToTopic from '../../Hooks/useSubscribeToTopic'
+import usePublishToTopic from '../../Hooks/usePublishToTopic'
 
 /* 
     -> Client connects to server with: protocol://server:port
@@ -13,20 +14,42 @@ import useConnectToBroker from '../../Hooks/useConnectToBroker'
     -> New windows is opened, with a chat to display and send messages
 */
 
+class Message {
+
+    topic
+    content
+
+    constructor(topic:string, content:string) {
+        this.topic = topic
+        this.content = content
+    }
+
+}
+
 const Connections = () => {
 
-    const {loading, message, connect, client} = useConnectToBroker()
-
-    useEffect(() => {
-        console.log(client)
-    }, [client])
+    const {loading, message:connMessage, connect, client} = useConnectToBroker()
+    const {loading:subLoading, message:subMessage, subscribe} = useSubscribeToTopic()
+    const {loading:pubLoading, message:pubMessage, publish} = usePublishToTopic()
 
     const [server, setServer] = useState<string>('')
     const [protocol, setProtocol] = useState<string>('')
     const [port, setPort] = useState<number|null>(null)
-    
-    const [topic, setTopic] = useState<String>('')
-    const [subscribedTopics, setSubscribedTopics] = useState<String[]>([])
+    const [topic, setTopic] = useState<string>('')
+    const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
+    const [messages, setMessages] = useState<Message[]>([])
+    const [chatMessage, setChatMessage] = useState<string>('')
+    const [chosenTopic, setChosenTopic] = useState<string>('')
+
+    useEffect(() => {
+        if (!client) return;
+        console.log(client)
+        client.on('message', (topic:string, content:any) => {
+            const message = new Message(topic, content.toString())
+            console.log(message)
+            setMessages((prev) => [...prev, message])
+        })
+    }, [client])
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
@@ -40,13 +63,21 @@ const Connections = () => {
 
     const handleSubmit2 = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
+
+        if (subscribedTopics.includes(topic)) {
+            console.log('Tópico já inscrito.')
+            return;
+        }
+
         console.log(topic)
+        subscribe(topic, client)
+        setSubscribedTopics((prev) => [...prev, topic])
+    }
 
-        client.subscribe(topic, () => {
-            console.log('cliente inscrito no topico: ', topic)
-            setSubscribedTopics((prev) => [...prev, topic])
-        })
-
+    const handleSubmit3 = (e:FormEvent<HTMLFormElement>):void => {
+        e.preventDefault()
+        console.log('ENVIANDO MENSAGEM: ', chatMessage, ' PARA O TOPICO: ', chosenTopic)
+        publish(client, chosenTopic, chatMessage)
     }
 
     return (
@@ -115,6 +146,45 @@ const Connections = () => {
                             <p>{topic}</p>
                         </div>
                     ))}
+
+                    <div>
+                        {/* MESSAGES FROM TOPICS */}
+                        {messages && messages.map((msg:Message, index) => (
+                            <p key={index}>
+                                <span>{msg.topic}:/{msg.content}</span>
+                            </p>
+                        ))}
+                    </div>
+                    
+                    <form onSubmit={handleSubmit3}>
+                        <div>
+                            <label htmlFor="chatmessage">Mensagem:</label>
+                            <input 
+                                type="text" 
+                                name='chatmessage'
+                                onChange={(e) => setChatMessage(e.target.value)}
+                                value={chatMessage}
+                            />
+                        </div>
+                        
+                        <div>
+                            {subscribedTopics.map((topic, index) => (
+                                <div key={index}>
+                                    <input 
+                                    type="radio" 
+                                    name='chosenTopic' 
+                                    value={topic}
+                                    checked={chosenTopic === topic}
+                                    onChange={(e)=>setChosenTopic(e.target.value)}/>
+                                    <label htmlFor={topic}>{topic}</label>
+                                </div>
+                            ))}
+                        </div>
+
+                        <input type="submit" value='enviar' />
+
+                    </form>
+
                 </div>
             }
 
