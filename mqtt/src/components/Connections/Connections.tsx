@@ -24,21 +24,18 @@ const Connections = () => {
     const [server, setServer] = useState<string>('')
     const [protocol, setProtocol] = useState<string>('')
     const [port, setPort] = useState<number|null>(null)
-    const [connected, setConnected] = useState<boolean>(false)
-    const [topic, setTopic] = useState<string>('')
+    
+    const [topic, setTopic] = useState<String>('')
+    const [subscribedTopics, setSubscribedTopics] = useState<String[]>([])
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
-
-        // Validate states
-        // (...)
 
         // Create connection string
         //const connectionString = `${protocol}://${server}:${port}`
         const connectionString = `ws://broker.hivemq.com:8000/mqtt`
 
         connect(connectionString)
-
     }
 
     const handleSubmit2 = (e:FormEvent<HTMLFormElement>):void => {
@@ -47,6 +44,7 @@ const Connections = () => {
 
         client.subscribe(topic, () => {
             console.log('cliente inscrito no topico: ', topic)
+            setSubscribedTopics((prev) => [...prev, topic])
         })
 
     }
@@ -91,7 +89,7 @@ const Connections = () => {
 
             {client && 
                 <div>
-                    <h1>Usuário conectado</h1>
+                    <h1>Usuário "{client.options.clientId}" conectado.</h1>
                     <form onSubmit={handleSubmit2} className={styles.form}>
                         <div>
                             <label htmlFor="topic">Tópico:</label>
@@ -106,6 +104,17 @@ const Connections = () => {
                         </div>
 
                     </form>
+                </div>
+            }
+
+            {subscribedTopics.length>0 && 
+                <div>
+                    <h1>Usuário "{client.options.clientId}" escutando topicos: </h1>
+                    {subscribedTopics.map((topic, index) => (
+                        <div key={index}>
+                            <p>{topic}</p>
+                        </div>
+                    ))}
                 </div>
             }
 
