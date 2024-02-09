@@ -5,7 +5,7 @@ import Chat from '../Chat/Chat'
 
 const Client = ({client}:any) => {
 
-    const {loading, message, subscribe, subscribedTopics} = useSubscribeToTopic()
+    const {loading, message, subscribe, unsubscribe, subscribedTopics} = useSubscribeToTopic()
 
     useEffect(() => {
         console.log('subscribedTopics: ', subscribedTopics)
@@ -16,6 +16,12 @@ const Client = ({client}:any) => {
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
         await subscribe(topic, client)
+    }
+
+    const handleSubmitUnsubscribe = async(e:any):Promise<void> => {
+        e.preventDefault()
+        console.log('Unsubing from: ', e.target.id)
+        await unsubscribe(e.target.id, client)
     }
 
     return (
@@ -55,7 +61,10 @@ const Client = ({client}:any) => {
                                 Subscribed topics:
                                 {subscribedTopics && subscribedTopics.map((topic) => (
                                     <div key={topic}>
-                                        <p>{topic}</p>
+                                        <form onSubmit={handleSubmitUnsubscribe} id={topic}>
+                                            <p>{topic}</p>
+                                            <input type="submit" value='unsubscribe'/>
+                                        </form>
                                     </div>
                                 ))}
                             </div>

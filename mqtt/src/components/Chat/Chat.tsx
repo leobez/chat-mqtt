@@ -58,16 +58,11 @@ const Chat = ({client, subscribedTopics}: Props) => {
                         </div>
                     ))}
                 </div>
-
-                <input type="submit" value='enviar' />
+                
+                {loading && <input type="submit" value='sending message...' disabled/>}
+                {!loading && <input type="submit" value='send message'/>}
 
             </form>
-            
-            {loading &&
-                <div>
-                    <p>Sending message...</p>
-                </div>
-            }
 
             {message && 
                 <div>
