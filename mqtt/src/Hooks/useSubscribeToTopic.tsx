@@ -53,7 +53,7 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.unsubscribe(topic)
             setLoading(false)
-            changeMessage(`Unsubscribed from topic ${topic}`)
+            changeMessage(`Unsubscribed from topic '${topic}' `)
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
         } catch (error) {
             setLoading(false)
