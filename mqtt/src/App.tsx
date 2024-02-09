@@ -1,5 +1,5 @@
 import './App.css'
-import Connections from './components/Connections/Connections'
+import Connection from './components/Connection/Connection'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Information from './components/Information/Information'
@@ -13,7 +13,7 @@ function App() {
 
           <main>
             <Information/>
-            <Connections/>
+            <Connection/>
           </main>
 
           <Footer/>
