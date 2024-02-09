@@ -10,29 +10,14 @@ const Connection = () => {
         console.log('client: ', client)
     }, [client])
 
-    const [protocol, setProtocol] = useState<string>('')
-    const [server, setServer] = useState<string>('')
-    const [port, setPort] = useState<number|null>(null)
+    /* STATES WITH BASE VALUES FOR TESTING - SET IT TO EMPTY LATER */
+    const [protocol, setProtocol]   = useState<string>('ws')
+    const [server, setServer]       = useState<string>('broker.hivemq.com')
+    const [port, setPort]           = useState<number|null>(8000)
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
-
-        // Validate inputs
-        /* if (server.trim() === '' || protocol.trim() === '') {
-            console.log('Invalid server or protocol.')
-            return;
-        }
-
-        if (!port) {
-            console.log('Invalid port.')
-            return;
-        } */
-
-        // Create connection string
-        //const connectionString = `${protocol}://${server}:${port}/mqtt`
-        const connectionString = `ws://broker.hivemq.com:8000/mqtt`
-
-        await connect(connectionString)
+        await connect(protocol, server, port)
     }
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
@@ -41,10 +26,16 @@ const Connection = () => {
     }
 
     return (
-        <div>
+        <div className={styles.connection}>
             
-            {/* CONNECT TO SERVER */}
+            {/* CONNECT FORM */}
             <form onSubmit={handleSubmit} className={styles.form}>
+
+                <div>
+                    <h1>
+                        Connect to MQTT broker:
+                    </h1>
+                </div>
 
                 <div>
                     <label htmlFor="protocol">Protocol:</label>
@@ -53,6 +44,7 @@ const Connection = () => {
                     name='protocol'
                     onChange={(e) => setProtocol(e.target.value)}
                     value={protocol}
+                    placeholder='ws'
                     />
                 </div>
 
@@ -63,6 +55,7 @@ const Connection = () => {
                     name='server'
                     onChange={(e) => setServer(e.target.value)}
                     value={server}
+                    placeholder='broker.hivemq.com'
                     />
                 </div>
 
@@ -73,35 +66,36 @@ const Connection = () => {
                     name='port'
                     onChange={(e) => setPort(Number(e.target.value))}
                     value={port?.toString()}
+                    placeholder='8000'
                     />
                 </div>
 
-                <input type="submit" value='Connect'/>
+                <div className={styles.full_url}>
+                    <h2>How your connection string looks like:</h2>
+                    <div>
+                        {protocol.length===0 ? (<h2>protocol</h2>) : (<h2>{protocol}</h2>)}
+                        <h2>://</h2>
+                        {server.length===0 ? (<h2>server</h2>) : (<h2>{server}</h2>)}
+                        <h2>:</h2>
+                        {!port ? (<h2>port</h2>) : (<h2>{port}</h2>)}
+                        <h2>/mqtt</h2>
+                    </div>
+                </div>
 
+                <input type="submit" value='Connect'/>
             </form>
 
+            {/* DISCONNECT FORM */}
             <form onSubmit={handleSubmitDisconnect}>
                 <input type="submit" value='Disconnect' />
             </form>
 
-            { loading && 
-                <div>
-                    <p>Connecting to server...</p>
-                </div>    
-            }
+            {/* STATES FROM CONNECTION */}
+            { loading && <div><p>Connecting to server...</p></div> }
 
-            { client && 
-                <div>
-                    <Client client={client}></Client>
-                </div>
-            }
+            { client && <div><Client client={client}></Client></div> }
 
-            
-            { message && 
-                <div>
-                    <p>{message}</p>
-                </div>
-            }
+            { message && <div className='feedbackMessages'><p>{message}</p></div> }
 
         </div>
     )

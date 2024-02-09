@@ -2,8 +2,10 @@ import styles from './Information.module.css'
 
 const Information = () => {
     return (
-        <div>
-            Information
+        <div className={styles.information}>
+            <h1>
+                Information
+            </h1> 
         </div>
     )
 }

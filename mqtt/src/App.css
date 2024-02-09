@@ -3,10 +3,13 @@
     width: 100%;
 }
 
-.App div {
+.App > div, main {
     border: 1px solid black;
 }
 
 main {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

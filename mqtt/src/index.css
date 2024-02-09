@@ -33,3 +33,45 @@ h1 {
 h2 {
     font-size: 16px;
 }
+
+/* FORMS */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+form > div {
+    display: flex;
+    padding: 5px;
+}
+form > div > label {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form > div > input[type='text'] {
+    width: 200px;
+    height: 30px;
+    padding: 3px;
+    font-size: 14px;
+}
+form > input[type='submit'] {
+    width: 200px;
+    height: 40px;
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+form > input[type='submit']:hover {
+    color: white;
+    background-color: black;
+}
+
+/* MESSAGES FROM HOOKS */
+.feedbackMessages {
+    
+}

@@ -7,7 +7,30 @@ const useConnectToBroker = () => {
     const [message, setMessage] = useState<string>('')
     const [client, setClient] = useState<any>(null)
 
-    const connect = async(connectionString:string):Promise<void> => {
+    const connect = async(protocol:string, server:string, port:number|null):Promise<void> => {
+
+        // Validate parameters
+        if (server.trim() === '') {
+            setMessage('Invalid server.')
+            console.log('Invalid server.')
+            return;
+        }
+
+        if (protocol.trim() === '') {
+            setMessage('Invalid protocol.')
+            console.log('Invalid protocol.')
+            return;
+        }
+
+        if (!port) {
+            setMessage('Invalid port.')
+            console.log('Invalid port.')
+            return;
+        } 
+
+        // Create connection string
+        const connectionString = `${protocol}://${server}:${port}/mqtt`
+        //const connectionString = `ws://broker.hivemq.com:8000/mqtt`
 
         if (client !== null) {
             console.log('Already connected.')
