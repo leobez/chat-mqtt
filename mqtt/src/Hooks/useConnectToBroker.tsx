@@ -1,29 +1,32 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import mqtt from 'mqtt'
+import MessageContext from "../context/MessageContext"
 
 const useConnectToBroker = () => {
     
+    const {changeMessage} = useContext(MessageContext)
+
     const [loading, setLoading] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('')
+    //const [message, setMessage] = useState<string>('')
     const [client, setClient] = useState<any>(null)
 
     const connect = async(protocol:string, server:string, port:number|null):Promise<void> => {
 
         // Validate parameters
-        if (server.trim() === '') {
-            setMessage('Invalid server.')
-            console.log('Invalid server.')
-            return;
-        }
-
         if (protocol.trim() === '') {
-            setMessage('Invalid protocol.')
+            changeMessage('Invalid protocol.')
             console.log('Invalid protocol.')
             return;
         }
 
+        if (server.trim() === '') {
+            changeMessage('Invalid server.')
+            console.log('Invalid server.')
+            return;
+        }
+
         if (!port) {
-            setMessage('Invalid port.')
+            changeMessage('Invalid port.')
             console.log('Invalid port.')
             return;
         } 
@@ -33,8 +36,8 @@ const useConnectToBroker = () => {
         //const connectionString = `ws://broker.hivemq.com:8000/mqtt`
 
         if (client !== null) {
+            changeMessage('Already connected.')
             console.log('Already connected.')
-            setMessage('Already connected.')
             return;
         }
 
@@ -43,11 +46,11 @@ const useConnectToBroker = () => {
             let tempClient = await mqtt.connect(connectionString)
             setClient(tempClient)
             setLoading(false)
-            setMessage('Connected.')
+            changeMessage('Connected.')
         } catch (error) {
             setLoading(false)
             console.log(error)
-            setMessage('Something went wrong.')
+            changeMessage('Something went wrong.')
         }
     }
 
@@ -55,7 +58,7 @@ const useConnectToBroker = () => {
 
         if (!client) {
             console.log('Already disconnected.')
-            setMessage('Already disconnected.')
+            changeMessage('Already disconnected.')
             return;
         }
 
@@ -64,17 +67,16 @@ const useConnectToBroker = () => {
             await client.end()
             setClient(null)
             setLoading(false)
-            setMessage('Disconnected.')
+            changeMessage('Disconnected.')
         } catch (error) {
             setLoading(false)
             console.log(error)
-            setMessage('Something went wrong.')
+            changeMessage('Something went wrong.')
         }
     }
 
     return {
         loading, 
-        message,
         connect,
         disconnect,
         client

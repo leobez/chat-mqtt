@@ -5,10 +5,7 @@ import Client from '../Client/Client'
 
 const Connection = () => {
 
-    const {loading, message, connect, disconnect, client} = useConnectToBroker()
-    useEffect(() => {
-        console.log('client: ', client)
-    }, [client])
+    const {loading, connect, disconnect, client} = useConnectToBroker()
 
     /* STATES WITH BASE VALUES FOR TESTING - SET IT TO EMPTY LATER */
     const [protocol, setProtocol]   = useState<string>('ws')
@@ -95,8 +92,6 @@ const Connection = () => {
             { loading && <div><p>Connecting to server...</p></div> }
 
             { client && <Client client={client}></Client> }
-
-            { message && <div className='feedbackMessages'><h2>{message}</h2></div> }
 
         </div>
     )
