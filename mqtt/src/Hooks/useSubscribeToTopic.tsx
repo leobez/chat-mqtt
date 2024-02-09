@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const useSubscribeToTopic = () => {
-
+    
     const [loading, setLoading] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react'
 import styles from './Connection.module.css'
-import useConnectToBroker from '../../Hooks/useConnectToBroker'
+import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
 
 const Connection = () => {

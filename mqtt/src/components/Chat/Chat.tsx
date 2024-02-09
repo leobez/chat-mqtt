@@ -1,37 +1,24 @@
 import { FormEvent, useEffect, useState } from 'react'
-import usePublishToTopic from '../../Hooks/usePublishToTopic'
+import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
+import useReadFromClient from '../../hooks/useReadFromClient'
+import Message from '../../classes/Message'
 
-class Message {
-
-    public topic
-    public content
-
-    constructor(topic:string, content:string) {
-        this.topic = topic
-        this.content = content
-    }
-
+type Props = {
+    client:any,
+    subscribedTopics:string[]
 }
 
-const Chat = (client:any, subscribedTopics:string[]) => {
+const Chat = ({client, subscribedTopics}: Props) => {
 
     const {loading, message, publish} = usePublishToTopic()
-    const [messages, setMessages] = useState<Message[]>([])
+    const {messages} = useReadFromClient(client)
+
     const [chatMessage, setChatMessage] = useState<string>('')
     const [chosenTopic, setChosenTopic] = useState<string>('')
 
-    useEffect(() => {
-        client.on('message', (topic:string, content:any) => {
-            const message = new Message(topic, content.toString())
-            console.log('New message: ', message)
-            setMessages((prev) => [...prev, message])
-        })
-    }, [])
-        
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
-        console.log('Sending: ', chatMessage, ' to topic: ', chosenTopic)
         await publish(client, chosenTopic, chatMessage)
     }
 
@@ -42,7 +29,7 @@ const Chat = (client:any, subscribedTopics:string[]) => {
                 {/* MESSAGES FROM TOPICS */}
                 {messages && messages.map((msg:Message, index) => (
                     <p key={index}>
-                        <span>{msg.topic}:/{msg.content}</span>
+                        <span>[ {msg.topic} ] : {msg.content}</span>
                     </p>
                 ))}
             </div>
@@ -59,7 +46,7 @@ const Chat = (client:any, subscribedTopics:string[]) => {
                 </div>
                 
                 <div>
-                    {subscribedTopics.map((topic) => (
+                    {subscribedTopics && subscribedTopics.map((topic) => (
                         <div key={topic}>
                             <input 
                             type="radio" 

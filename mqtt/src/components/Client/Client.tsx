@@ -1,11 +1,16 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import styles from './Client.module.css'
-import useSubscribeToTopic from '../../Hooks/useSubscribeToTopic'
+import useSubscribeToTopic from '../../hooks/useSubscribeToTopic'
 import Chat from '../Chat/Chat'
 
-const Client = (client:any) => {
+const Client = ({client}:any) => {
 
     const {loading, message, subscribe, subscribedTopics} = useSubscribeToTopic()
+
+    useEffect(() => {
+        console.log('subscribedTopics: ', subscribedTopics)
+    }, [subscribedTopics])
+
     const [topic, setTopic] = useState<string>('')
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
