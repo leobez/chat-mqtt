@@ -28,10 +28,32 @@ const useConnectToBroker = () => {
         }
     }
 
+    const disconnect = async(client:any):Promise<void> => {
+
+        if (!client) {
+            console.log('Already disconnected.')
+            setMessage('Already disconnected.')
+            return;
+        }
+
+        try {
+            setLoading(true)
+            await client.end()
+            setClient(null)
+            setLoading(false)
+            setMessage('Disconnected.')
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+            setMessage('Something went wrong.')
+        }
+    }
+
     return {
         loading, 
         message,
         connect,
+        disconnect,
         client
     }
 }

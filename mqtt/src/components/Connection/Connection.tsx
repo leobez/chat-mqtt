@@ -5,7 +5,7 @@ import Client from '../Client/Client'
 
 const Connection = () => {
 
-    const {loading, message, connect, client} = useConnectToBroker()
+    const {loading, message, connect, disconnect, client} = useConnectToBroker()
     useEffect(() => {
         console.log('client: ', client)
     }, [client])
@@ -35,6 +35,10 @@ const Connection = () => {
         await connect(connectionString)
     }
 
+    const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
+        e.preventDefault()
+        await disconnect(client)
+    }
 
     return (
         <div>
@@ -72,8 +76,12 @@ const Connection = () => {
                     />
                 </div>
 
-                <input type="submit" value='Conectar'/>
+                <input type="submit" value='Connect'/>
 
+            </form>
+
+            <form onSubmit={handleSubmitDisconnect}>
+                <input type="submit" value='Disconnect' />
             </form>
 
             { loading && 
