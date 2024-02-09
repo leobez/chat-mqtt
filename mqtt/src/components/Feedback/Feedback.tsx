@@ -7,11 +7,11 @@ const Feedback = () => {
     const {message} = useContext(MessageContext)
 
     return (
-        <div>
+        <div className={styles.feedback}>
 
             {message.length > 0 && 
                 <div className='feedbackMessage'>
-                    <h2>{message}</h2>
+                    <h1>{message}</h1>
                 </div>
             }
 
