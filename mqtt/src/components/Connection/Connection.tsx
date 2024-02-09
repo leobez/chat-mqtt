@@ -71,7 +71,7 @@ const Connection = () => {
                 </div>
 
                 <div className={styles.full_url}>
-                    <h2>How your connection string looks like:</h2>
+                    <h2>Your connection string looks like:</h2>
                     <div>
                         {protocol.length===0 ? (<h2>protocol</h2>) : (<h2>{protocol}</h2>)}
                         <h2>://</h2>
@@ -83,6 +83,7 @@ const Connection = () => {
                 </div>
 
                 <input type="submit" value='Connect'/>
+                
             </form>
 
             {/* DISCONNECT FORM */}
@@ -93,9 +94,9 @@ const Connection = () => {
             {/* STATES FROM CONNECTION */}
             { loading && <div><p>Connecting to server...</p></div> }
 
-            { client && <div><Client client={client}></Client></div> }
+            { client && <Client client={client}></Client> }
 
-            { message && <div className='feedbackMessages'><p>{message}</p></div> }
+            { message && <div className='feedbackMessages'><h2>{message}</h2></div> }
 
         </div>
     )

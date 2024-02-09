@@ -25,63 +25,59 @@ const Client = ({client}:any) => {
     }
 
     return (
-        <div>
+
+        <div className={styles.client}>
+
             {client && client.options &&
 
-                <div>
+                <>
 
                     <h1> User [ {client.options.clientId} ] connected. </h1>
 
                     <form onSubmit={handleSubmit} className={styles.form}>
 
+                        <h2>Enter the topics you want to subscribe: </h2>
+
                         <div>
                             <label htmlFor="topic">Topic:</label>
-
                             <input 
                                 type="text"
                                 name='topic'
                                 onChange={(e) => setTopic(e.target.value)}
                                 value={topic}
                             />
-
-                            <input type="submit" value='Subscribe to topic'/>
                         </div>
+
+                        <input type="submit" value='Subscribe to topic'/>
 
                     </form>
 
-                    {loading && 
-                        <div>
-                            <p>Subscribing to topic...</p>
-                        </div>
-                    }
+                    {loading && <div><p>Subscribing to topic...</p></div>}
 
                     {subscribedTopics.length > 0 && 
                         <div>
-                            <div>
-                                Subscribed topics:
+                            <div className={styles.subscribed_topics}>
+                                <h2>Subscribed topics:</h2>
                                 {subscribedTopics && subscribedTopics.map((topic) => (
-                                    <div key={topic}>
+                                    <div key={topic} className={styles.topics}>
                                         <form onSubmit={handleSubmitUnsubscribe} id={topic}>
-                                            <p>{topic}</p>
-                                            <input type="submit" value='unsubscribe'/>
+                                            <div>
+                                                <p>{topic}</p>
+                                                <input type="submit" value='unsubscribe'/>
+                                            </div>                     
                                         </form>
                                     </div>
                                 ))}
                             </div>
 
                             <Chat client={client} subscribedTopics={subscribedTopics}/>
-
-                        </div>
-                    
-                    }
-
-                    {message && 
-                        <div>
-                            <p>{message}</p>
+                            
                         </div>
                     }
 
-                </div>
+                    {message && <div className='feedbackMessages'><h2>{message}</h2></div>}
+
+                </>
             }
 
         </div>

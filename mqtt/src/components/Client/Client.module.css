@@ -1,0 +1,44 @@
+.client {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 10px;
+    gap: 10px;
+}
+
+.client > form {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.subscribed_topics {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+.subscribed_topics > .topics > form > div {
+    display: flex;
+    gap: 10px;
+    border: 1px solid black;
+    height: 40px;
+}
+.subscribed_topics > .topics > form > div > p {
+    width: 100px;
+    display: flex;
+    align-items: center;
+}
+.subscribed_topics > .topics > form > div > input[type='submit'] {
+    height: 100%;
+    width: 120px;
+    background-color: white;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+.subscribed_topics > .topics > form > div > input[type='submit']:hover {
+    color: white;
+    background-color: black;
+}

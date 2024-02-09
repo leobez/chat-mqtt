@@ -48,7 +48,6 @@ form > div > label {
     width: 80px;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 form > div > input[type='text'] {
     width: 200px;
@@ -73,5 +72,7 @@ form > input[type='submit']:hover {
 
 /* MESSAGES FROM HOOKS */
 .feedbackMessages {
-    
+    color: blue;
+    border: 2px solid blue;
+    padding: 10px;
 }

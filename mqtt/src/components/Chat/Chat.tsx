@@ -64,11 +64,7 @@ const Chat = ({client, subscribedTopics}: Props) => {
 
             </form>
 
-            {message && 
-                <div>
-                    <p>{message}</p>
-                </div>
-            }
+            {message && <div className='feedbackMessages'><h2>{message}</h2></div>}
 
         </div>
     )
