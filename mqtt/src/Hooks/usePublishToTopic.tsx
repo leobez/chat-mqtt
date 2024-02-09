@@ -1,21 +1,22 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import MessageContext from "../context/MessageContext"
 
 const usePublishToTopic = () => {
 
+    const {changeMessage} = useContext(MessageContext)
     const [loading, setLoading] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('')
 
     const publish = async(client:any, topic:string, message:any):Promise<void> => {
 
         if (topic.trim() === '') {
             console.log('Invalid topic.')
-            setMessage('Invalid topic.')
+            changeMessage('Invalid topic.')
             return;
         }
 
         if (message.trim() === '') {
             console.log('Invalid message.')
-            setMessage('Invalid message.')
+            changeMessage('Invalid message.')
             return;
         }
 
@@ -24,17 +25,16 @@ const usePublishToTopic = () => {
             await client.publish(topic, message)
             console.log('Message published.')
             setLoading(false)
-            setMessage('Message submited.')
+            changeMessage('Message submited.')
         } catch (error) {
             setLoading(false)
             console.log(error)
-            setMessage('Something went wrong.')
+            changeMessage('Something went wrong.')
         }
     }
 
     return {
         loading, 
-        message,
         publish
     }
 }

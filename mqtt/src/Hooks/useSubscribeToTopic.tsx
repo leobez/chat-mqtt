@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react"
+import { useContext, useState } from "react"
+import MessageContext from "../context/MessageContext"
 
 const useSubscribeToTopic = () => {
     
+    const {changeMessage} = useContext(MessageContext)
     const [loading, setLoading] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('')
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
 
     const subscribe = async(topic:string, client:any):Promise<void> => {
 
         if (subscribedTopics.includes(topic)) {
-            setMessage('Already subscribed to topic.')
+            changeMessage('Already subscribed to topic.')
             console.log('Already subscribed to topic.')
             return;
         }
 
         if (topic.trim() === '') {
-            setMessage('Invalid topic.')
+            changeMessage('Invalid topic.')
             console.log('Invalid topic.')
             return;
         }
@@ -24,12 +25,12 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.subscribe(topic)
             setLoading(false)
-            setMessage(`Subscribed to topic ${topic}`)
+            changeMessage(`Subscribed to topic ${topic}`)
             setSubscribedTopics((prev) => [...prev, topic])
         } catch (error) {
             setLoading(false)
             console.log(error)
-            setMessage('Something went wrong.')
+            changeMessage('Something went wrong.')
         }
 
     }
@@ -37,13 +38,13 @@ const useSubscribeToTopic = () => {
     const unsubscribe = async(topic:string, client:any):Promise<void> => {
 
         if (!subscribedTopics.includes(topic)) {
-            setMessage('Topic not subscribed.')
+            changeMessage('Topic not subscribed.')
             console.log('Topic not subscribed.')
             return;
         }
 
         if (topic.trim() === '') {
-            setMessage('Invalid topic.')
+            changeMessage('Invalid topic.')
             console.log('Invalid topic.')
             return;
         }
@@ -52,19 +53,18 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.unsubscribe(topic)
             setLoading(false)
-            setMessage(`Unsubscribed from topic ${topic}`)
+            changeMessage(`Unsubscribed from topic ${topic}`)
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
         } catch (error) {
             setLoading(false)
             console.log(error)
-            setMessage('Something went wrong.')
+            changeMessage('Something went wrong.')
         }
 
     }
 
     return {
         loading, 
-        message,
         subscribe,
         unsubscribe,
         subscribedTopics

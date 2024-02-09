@@ -69,10 +69,3 @@ form > input[type='submit']:hover {
     color: white;
     background-color: black;
 }
-
-/* MESSAGES FROM HOOKS */
-.feedbackMessages {
-    color: blue;
-    border: 2px solid blue;
-    padding: 10px;
-}

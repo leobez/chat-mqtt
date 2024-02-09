@@ -11,7 +11,7 @@ type Props = {
 
 const Chat = ({client, subscribedTopics}: Props) => {
 
-    const {loading, message, publish} = usePublishToTopic()
+    const {loading, publish} = usePublishToTopic()
     const {messages} = useReadFromClient(client)
 
     const [chatMessage, setChatMessage] = useState<string>('')
@@ -66,9 +66,7 @@ const Chat = ({client, subscribedTopics}: Props) => {
                 </div>
 
             </form>
-
-            {message && <div className='feedbackMessages'><h2>{message}</h2></div>}
-
+            
         </div>
     )
 }

@@ -5,9 +5,7 @@ import MessageContext from "../context/MessageContext"
 const useConnectToBroker = () => {
     
     const {changeMessage} = useContext(MessageContext)
-
     const [loading, setLoading] = useState<boolean>(false)
-    //const [message, setMessage] = useState<string>('')
     const [client, setClient] = useState<any>(null)
 
     const connect = async(protocol:string, server:string, port:number|null):Promise<void> => {

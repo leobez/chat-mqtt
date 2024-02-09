@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import styles from './Feedback.module.css'
 import MessageContext from '../../context/MessageContext'
 

@@ -5,7 +5,7 @@ import Chat from '../Chat/Chat'
 
 const Client = ({client}:any) => {
 
-    const {loading, message, subscribe, unsubscribe, subscribedTopics} = useSubscribeToTopic()
+    const {loading, subscribe, unsubscribe, subscribedTopics} = useSubscribeToTopic()
 
     useEffect(() => {
         console.log('subscribedTopics: ', subscribedTopics)
@@ -74,9 +74,7 @@ const Client = ({client}:any) => {
 
                         </>
                     }
-
-                    {message && <div className='feedbackMessages'><h2>{message}</h2></div>}
-
+                    
                 </>
             }
 
