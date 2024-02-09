@@ -23,9 +23,10 @@ const Chat = ({client, subscribedTopics}: Props) => {
     }
 
     return (
-        <div>
 
-            <div>
+        <div className={styles.chat}>
+
+            <div className={styles.messages}>
                 {/* MESSAGES FROM TOPICS */}
                 {messages && messages.map((msg:Message, index) => (
                     <p key={index}>
@@ -35,17 +36,22 @@ const Chat = ({client, subscribedTopics}: Props) => {
             </div>
                     
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="chatmessage">Mensagem:</label>
+
+                <div className={styles.send_message}>
+
                     <input 
                         type="text" 
                         name='chatmessage'
                         onChange={(e) => setChatMessage(e.target.value)}
                         value={chatMessage}
                     />
+
+                    {loading && <input type="submit" value='sending message...' disabled/>}
+                    {!loading && <input type="submit" value='Send'/>}
+
                 </div>
-                
-                <div>
+
+                <div className={styles.choose_topic}>
                     {subscribedTopics && subscribedTopics.map((topic) => (
                         <div key={topic}>
                             <input 
@@ -58,9 +64,6 @@ const Chat = ({client, subscribedTopics}: Props) => {
                         </div>
                     ))}
                 </div>
-                
-                {loading && <input type="submit" value='sending message...' disabled/>}
-                {!loading && <input type="submit" value='send message'/>}
 
             </form>
 

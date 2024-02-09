@@ -1,0 +1,62 @@
+.chat {
+    display: flex;
+    flex-direction: column;
+}
+.messages {
+    height: 400px;
+    border: 2px solid black;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    gap: 10px;
+    padding: 10px;
+}
+
+.chat > form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+
+.send_message {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    padding: 0px;
+}
+.send_message > input[type='text'] {
+    flex-basis: 90%;
+}
+.send_message > input[type='submit'] {
+    flex-basis: 10%;
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.send_message > input[type='submit']:hover {
+    flex-basis: 10%;
+    background-color: black;
+    color: white;
+}
+
+.choose_topic {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid black;
+}
+.choose_topic > div {
+    display: flex;
+    gap: 5px;
+}
+
+
+
+
+
+

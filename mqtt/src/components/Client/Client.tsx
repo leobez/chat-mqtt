@@ -55,7 +55,7 @@ const Client = ({client}:any) => {
                     {loading && <div><p>Subscribing to topic...</p></div>}
 
                     {subscribedTopics.length > 0 && 
-                        <div>
+                        <>
                             <div className={styles.subscribed_topics}>
                                 <h2>Subscribed topics:</h2>
                                 {subscribedTopics && subscribedTopics.map((topic) => (
@@ -71,8 +71,8 @@ const Client = ({client}:any) => {
                             </div>
 
                             <Chat client={client} subscribedTopics={subscribedTopics}/>
-                            
-                        </div>
+
+                        </>
                     }
 
                     {message && <div className='feedbackMessages'><h2>{message}</h2></div>}
