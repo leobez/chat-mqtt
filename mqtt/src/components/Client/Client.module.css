@@ -7,8 +7,6 @@
 }
 
 .client > form {
-    border: 1px solid black;
-    padding: 10px;
 }
 
 .subscribed_topics {
@@ -16,7 +14,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
 }
 .subscribed_topics > .topics > form > div {
     display: flex;

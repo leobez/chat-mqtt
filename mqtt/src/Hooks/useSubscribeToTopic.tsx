@@ -25,7 +25,7 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.subscribe(topic)
             setLoading(false)
-            changeMessage(`Subscribed to topic ${topic}`)
+            changeMessage(`Subscribed to topic '${topic}' `)
             setSubscribedTopics((prev) => [...prev, topic])
         } catch (error) {
             setLoading(false)

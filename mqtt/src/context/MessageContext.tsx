@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 const MessageContext = createContext({
     message: '',
-    changeMessage:(m:string)=>{}
+    changeMessage:(newMsg:string)=>{}
 })
 
 export const MessageProvider = ({children}:any) => {
@@ -10,7 +10,6 @@ export const MessageProvider = ({children}:any) => {
     const [message, setMessage] = useState<string>('')
 
     const changeMessage = (newMsg:string) => {
-        console.log('chegou.')
         setMessage(newMsg)
     }
 

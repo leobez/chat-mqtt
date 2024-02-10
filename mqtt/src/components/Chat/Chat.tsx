@@ -20,6 +20,7 @@ const Chat = ({client, subscribedTopics}: Props) => {
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
         await publish(client, chosenTopic, chatMessage)
+        setChatMessage('')
     }
 
     return (

@@ -68,7 +68,7 @@ const Connection = () => {
                 </div>
 
                 <div className={styles.full_url}>
-                    <h2>Your connection string looks like:</h2>
+                    <h2>Your connection string looks like this:</h2>
                     <div>
                         {protocol.length===0 ? (<h2>protocol</h2>) : (<h2>{protocol}</h2>)}
                         <h2>://</h2>
