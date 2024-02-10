@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import Message from "../classes/Message"
+import { MqttClient } from "mqtt"
 
-const useReadFromClient = (client:any) => {
+const useReadFromClient = (client:MqttClient) => {
 
     const [messages, setMessages] = useState<Message[]>([])
 

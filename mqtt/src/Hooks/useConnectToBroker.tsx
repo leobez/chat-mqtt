@@ -1,12 +1,13 @@
 import { useContext, useState } from "react"
 import mqtt from 'mqtt'
+import { MqttClient } from "mqtt"
 import MessageContext from "../context/MessageContext"
 
 const useConnectToBroker = () => {
     
     const {changeMessage} = useContext(MessageContext)
     const [loading, setLoading] = useState<boolean>(false)
-    const [client, setClient] = useState<any>(null)
+    const [client, setClient] = useState<MqttClient|null>(null)
 
     const connect = async(protocol:string, server:string, port:number|null):Promise<void> => {
 
@@ -52,7 +53,7 @@ const useConnectToBroker = () => {
         }
     }
 
-    const disconnect = async(client:any):Promise<void> => {
+    const disconnect = async(client:MqttClient|null):Promise<void> => {
 
         if (!client) {
             console.log('Already disconnected.')

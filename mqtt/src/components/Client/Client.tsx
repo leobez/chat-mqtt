@@ -2,8 +2,13 @@ import { FormEvent, useEffect, useState } from 'react'
 import styles from './Client.module.css'
 import useSubscribeToTopic from '../../hooks/useSubscribeToTopic'
 import Chat from '../Chat/Chat'
+import { MqttClient } from 'mqtt'
 
-const Client = ({client}:any) => {
+type Prop = {
+    client:MqttClient
+}
+
+const Client = ({client}:Prop) => {
 
     const {loading, subscribe, unsubscribe, subscribedTopics} = useSubscribeToTopic()
 

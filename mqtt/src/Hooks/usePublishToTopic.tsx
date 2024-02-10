@@ -1,12 +1,13 @@
 import { useContext, useState } from "react"
 import MessageContext from "../context/MessageContext"
+import { MqttClient } from "mqtt"
 
 const usePublishToTopic = () => {
 
     const {changeMessage} = useContext(MessageContext)
     const [loading, setLoading] = useState<boolean>(false)
 
-    const publish = async(client:any, topic:string, message:any):Promise<void> => {
+    const publish = async(client:MqttClient, topic:string, message:string):Promise<void> => {
 
         if (topic.trim() === '') {
             console.log('Invalid topic.')

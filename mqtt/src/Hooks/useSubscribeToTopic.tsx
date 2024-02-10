@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import MessageContext from "../context/MessageContext"
+import { MqttClient } from "mqtt"
 
 const useSubscribeToTopic = () => {
     
@@ -7,7 +8,7 @@ const useSubscribeToTopic = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
 
-    const subscribe = async(topic:string, client:any):Promise<void> => {
+    const subscribe = async(topic:string, client:MqttClient):Promise<void> => {
 
         if (subscribedTopics.includes(topic)) {
             changeMessage('Already subscribed to topic.')
@@ -35,7 +36,7 @@ const useSubscribeToTopic = () => {
 
     }
 
-    const unsubscribe = async(topic:string, client:any):Promise<void> => {
+    const unsubscribe = async(topic:string, client:MqttClient):Promise<void> => {
 
         if (!subscribedTopics.includes(topic)) {
             changeMessage('Topic not subscribed.')

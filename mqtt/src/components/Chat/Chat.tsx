@@ -3,9 +3,10 @@ import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
 import useReadFromClient from '../../hooks/useReadFromClient'
 import Message from '../../classes/Message'
+import { MqttClient } from 'mqtt'
 
 type Props = {
-    client:any,
+    client:MqttClient,
     subscribedTopics:string[]
 }
 
