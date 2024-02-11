@@ -24,7 +24,7 @@ const usePublishToTopic = () => {
 
         try {
             setLoading(true)
-            await client.publish(topic, message)
+            await client.publishAsync(topic, message)
             console.log('Message published.')
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage('Message published.', 'good'))

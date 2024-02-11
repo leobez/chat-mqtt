@@ -25,7 +25,7 @@ const useSubscribeToTopic = () => {
 
         try {
             setLoading(true)
-            await client.subscribe(topic)
+            await client.subscribeAsync(topic)
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic '${topic}'`, 'good'))
             setSubscribedTopics((prev) => [...prev, topic])
@@ -53,7 +53,7 @@ const useSubscribeToTopic = () => {
 
         try {
             setLoading(true)
-            await client.unsubscribe(topic)
+            await client.unsubscribeAsync(topic)
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic '${topic}'`, 'good'))
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
