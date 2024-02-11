@@ -15,7 +15,7 @@ const Connection = () => {
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
-        await disconnect(client)
+        await disconnect()
     }
 
     return (
@@ -56,8 +56,7 @@ const Connection = () => {
 
             {/* STATES FROM CONNECTION */}
             { loading && <div><p>Connecting to server...</p></div> }
-
-            { client && <Client client={client}></Client> }
+            { client && <Client client={client}></Client> } 
 
         </div>
     )

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
@@ -18,26 +18,32 @@ const useConnectToBroker = () => {
             return;
         }
 
-        if (client !== null) {
+        if (client!==null) {
             changeFeedbackMessage(new FeedbackMessage('Already connected.', 'bad'))
             console.log('Already connected.')
             return;
         }
 
         try {
+
             setLoading(true)
+
             const mqttClient:MqttClient = mqtt.connect(connectionString)
+
             mqttClient.stream.on('error', async(err) => {
+
                 if (err.message === 'WebSocket error') { 
                     changeFeedbackMessage(new FeedbackMessage('Connection failed.', 'bad'))
                 } else {
                     changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
                 }
+
                 await mqttClient.endAsync()
                 setClient(null)
                 setLoading(false)
             })
 
+            // If connection succeeds
             mqttClient.stream.on('connect', () => {
                 setClient(mqttClient)
                 setLoading(false)
@@ -47,7 +53,6 @@ const useConnectToBroker = () => {
         } catch (error:any) {
             setLoading(false)
             console.log(error)
-
             if (error.message === 'Missing protocol') {
                 changeFeedbackMessage(new FeedbackMessage('Connection string is missing protocol.', 'bad'))
             } else {
@@ -56,7 +61,7 @@ const useConnectToBroker = () => {
         }
     }
 
-    const disconnect = async(client:MqttClient|null):Promise<void> => {
+    const disconnect = async():Promise<void> => {
 
         if (!client) {
             console.log('Already disconnected.')
@@ -81,7 +86,7 @@ const useConnectToBroker = () => {
         loading, 
         connect,
         disconnect,
-        client
+        client,
     }
 }
 
