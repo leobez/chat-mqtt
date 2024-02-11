@@ -17,11 +17,13 @@ function App() {
             <FeedbackMessageProvider>
                 <ClientContextProvider>
 
-                    <Header/>
+                    <header>
+                        <Header/>
+                    </header>
+                    
 
                     <main>
                         <BrowserRouter>
-                        
 
                             <Navbar/>
 
@@ -34,11 +36,10 @@ function App() {
                         </BrowserRouter>
                     </main>
 
-                    {/* FOR TESTING PURPOSES */}
-                    {/* <div style={{height: '1000px'}}></div> */}
-
-                    <Footer/>
-
+                    <footer>
+                        <Footer/>
+                    </footer>
+            
                 </ClientContextProvider>
             </FeedbackMessageProvider>
         </div>

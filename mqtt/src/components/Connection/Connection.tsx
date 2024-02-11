@@ -9,25 +9,29 @@ const Connection = () => {
     const {loading, connect, disconnect, client} = useConnectToBroker()
     const [connectionString, setConnectionString] = useState<string>('')
 
-    const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
+    const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
         const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
         //connect(connectionString)
         connect(tempConectionStringForTesting)
     }
 
-    const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
+    const handleDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
         await disconnect()
     }
 
     return (
-        <div className={styles.connection}>
-            
-            <Feedback/>
+        <div className={styles.connectioncontainer}>
 
-            {/* CONNECT FORM */}
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.connection}>
+
+                <div className={styles.feedbackcontainer}>
+                    <Feedback/>
+                </div>
+
+                {/* CONNECT FORM */}
+                <form onSubmit={handleConnect} className={styles.form}>
 
                 <div>
                     <h1>
@@ -59,17 +63,21 @@ const Connection = () => {
                 ) : (
                     <input type="submit" value='Connect'/>
                 )}  
-                
-            </form>
 
-            {/* DISCONNECT FORM */}
-            <form onSubmit={handleSubmitDisconnect}>
-                <input type="submit" value='Disconnect' />
-            </form>
+                </form>
+                
+                {/* DISCONNECT FORM */}
+                <form onSubmit={handleDisconnect}>
+                    <input type="submit" value='Disconnect' />
+                </form>
+
+            </div>
 
             {/* STATES FROM CONNECTION */}
-            { loading && <div><p>Connecting to server...</p></div> }
-            { client && <Client client={client}></Client> } 
+            <div className={styles.clientcontainer}>
+                {loading && <div><p>Connecting to server...</p></div>}
+                {client && <Client client={client}></Client>} 
+            </div>
 
         </div>
     )

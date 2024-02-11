@@ -1,8 +1,17 @@
+.connectioncontainer {
+    display: flex;
+    gap: 2px;
+}
+.connectioncontainer > div {
+    flex-basis: 50%;
+}
 .connection {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
+
+.feedbackcontainer {}
 
 .connection > form {
     border: 2px solid black;
@@ -12,4 +21,12 @@
 .examples {
     display: flex;
     flex-direction: column;
+}
+.examples > ul{
+    display: flex;
+    flex-direction: column;
+}
+.examples > ul > li{
+    display: inline;
+    text-indent: 10px;
 }

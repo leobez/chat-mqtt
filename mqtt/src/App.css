@@ -1,12 +1,19 @@
 .App {
     height: 100%;
-    width: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 2px
 }
 
-main {
+.App header {
+    flex: 0 1 120px;
+    border: 1px solid black;
+}
+.App main {
+    flex: 1 1 auto;
     max-width: 1600px;
-    margin: 2px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+}
+.App footer {
+    flex: 0 1 120px;
+    border: 1px solid black;
 }
