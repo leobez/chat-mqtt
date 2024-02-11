@@ -4,15 +4,24 @@ import MessageContext from '../../context/MessageContext'
 
 const Feedback = () => {
 
-    const {message} = useContext(MessageContext)
+    const {messageAndStatus} = useContext(MessageContext)
 
     return (
         <div className={styles.feedback}>
 
-            {message.length > 0 && 
-                <div className='feedbackMessage'>
-                    <h1>{message}</h1>
-                </div>
+            {messageAndStatus.message.length > 0 && 
+                <>
+                    {messageAndStatus.status === 'good' ? (
+                        <div className={styles.goodfeedback}>
+                            <h1>{messageAndStatus.message}</h1>
+                        </div>
+                    ) : (
+                        <div className={styles.badfeedback}>
+                            <h1>{messageAndStatus.message}</h1>
+                        </div>
+                    )}
+                </>
+                
             }
 
         </div>

@@ -1,23 +1,24 @@
 import { useContext, useState } from "react"
 import MessageContext from "../context/MessageContext"
 import { MqttClient } from "mqtt"
+import MessageAndStatus from "../classes/MessageAndStatus"
 
 const useSubscribeToTopic = () => {
     
-    const {changeMessage} = useContext(MessageContext)
+    const {changeMessageAndStatus} = useContext(MessageContext)
     const [loading, setLoading] = useState<boolean>(false)
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
 
     const subscribe = async(topic:string, client:MqttClient):Promise<void> => {
 
         if (subscribedTopics.includes(topic)) {
-            changeMessage('Already subscribed to topic.')
+            changeMessageAndStatus(new MessageAndStatus('Already subscribed to topic.', 'bad'))
             console.log('Already subscribed to topic.')
             return;
         }
 
         if (topic.trim() === '') {
-            changeMessage('Invalid topic.')
+            changeMessageAndStatus(new MessageAndStatus('Invalid topic.', 'bad'))
             console.log('Invalid topic.')
             return;
         }
@@ -26,12 +27,12 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.subscribe(topic)
             setLoading(false)
-            changeMessage(`Subscribed to topic '${topic}' `)
+            changeMessageAndStatus(new MessageAndStatus(`Subscribed to topic '${topic}'`, 'good'))
             setSubscribedTopics((prev) => [...prev, topic])
         } catch (error) {
             setLoading(false)
             console.log(error)
-            changeMessage('Something went wrong.')
+            changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
         }
 
     }
@@ -39,13 +40,13 @@ const useSubscribeToTopic = () => {
     const unsubscribe = async(topic:string, client:MqttClient):Promise<void> => {
 
         if (!subscribedTopics.includes(topic)) {
-            changeMessage('Topic not subscribed.')
+            changeMessageAndStatus(new MessageAndStatus('Topic not subscribed.', 'bad'))
             console.log('Topic not subscribed.')
             return;
         }
 
         if (topic.trim() === '') {
-            changeMessage('Invalid topic.')
+            changeMessageAndStatus(new MessageAndStatus('Invalid topic.', 'bad'))
             console.log('Invalid topic.')
             return;
         }
@@ -54,12 +55,12 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.unsubscribe(topic)
             setLoading(false)
-            changeMessage(`Unsubscribed from topic '${topic}' `)
+            changeMessageAndStatus(new MessageAndStatus(`Unsubscribed from topic '${topic}'`, 'good'))
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
         } catch (error) {
             setLoading(false)
             console.log(error)
-            changeMessage('Something went wrong.')
+            changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
         }
 
     }

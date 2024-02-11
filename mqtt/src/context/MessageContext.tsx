@@ -1,20 +1,21 @@
 import { createContext, useState } from "react";
+import MessageAndStatus from "../classes/MessageAndStatus";
 
 const MessageContext = createContext({
-    message: '',
-    changeMessage:(newMsg:string)=>{}
+    messageAndStatus: new MessageAndStatus('', ''),
+    changeMessageAndStatus:(newMsgStatus:MessageAndStatus)=>{}
 })
 
 export const MessageProvider = ({children}:any) => {
 
-    const [message, setMessage] = useState<string>('')
+    const [messageAndStatus, setMessageAndStatus] = useState<MessageAndStatus>(new MessageAndStatus('', ''))
 
-    const changeMessage = (newMsg:string) => {
-        setMessage(newMsg)
+    const changeMessageAndStatus = (newMsgStatus:MessageAndStatus) => {
+        setMessageAndStatus(newMsgStatus)
     }
 
     return (
-        <MessageContext.Provider value={{message, changeMessage}}>
+        <MessageContext.Provider value={{messageAndStatus, changeMessageAndStatus}}>
             {children}
         </MessageContext.Provider>
     )
