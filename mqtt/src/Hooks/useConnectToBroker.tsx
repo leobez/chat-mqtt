@@ -9,30 +9,13 @@ const useConnectToBroker = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [client, setClient] = useState<MqttClient|null>(null)
 
-    const connect = async(protocol:string, server:string, port:number|null):Promise<void> => {
+    const connect = async(connectionString:string):Promise<void> => {
 
-        // Validate parameters
-        if (protocol.trim() === '') {
-            changeMessage('Invalid protocol.')
-            console.log('Invalid protocol.')
+        if (connectionString.trim() === '') {
+            changeMessage('Connection string empty.')
+            console.log('Connection string empty.')
             return;
         }
-
-        if (server.trim() === '') {
-            changeMessage('Invalid server.')
-            console.log('Invalid server.')
-            return;
-        }
-
-        if (!port) {
-            changeMessage('Invalid port.')
-            console.log('Invalid port.')
-            return;
-        } 
-
-        // Create connection string
-        const connectionString = `${protocol}://${server}:${port}/mqtt`
-        //const connectionString = `ws://broker.hivemq.com:8000/mqtt`
 
         if (client !== null) {
             changeMessage('Already connected.')
@@ -42,14 +25,35 @@ const useConnectToBroker = () => {
 
         try {
             setLoading(true)
-            let tempClient = await mqtt.connect(connectionString)
-            setClient(tempClient)
-            setLoading(false)
-            changeMessage('Connected.')
-        } catch (error) {
+
+            const mqttClient:MqttClient = mqtt.connect(connectionString)
+
+            mqttClient.stream.on('error', async(err) => {
+                if (err.message === 'WebSocket error') { 
+                    changeMessage('Connection failed.')
+                } else {
+                    changeMessage('Something went wrong.')
+                }
+                await mqttClient.endAsync()
+                setClient(null)
+                setLoading(false)
+            })
+
+            mqttClient.stream.on('connect', () => {
+                setClient(mqttClient)
+                setLoading(false)
+                changeMessage('Connected.')
+            })  
+            
+        } catch (error:any) {
             setLoading(false)
             console.log(error)
-            changeMessage('Something went wrong.')
+
+            if (error.message === 'Missing protocol') {
+                changeMessage('Connection string is missing protocol.')
+            } else {
+                changeMessage('Something went wrong.')
+            }
         }
     }
 
@@ -63,7 +67,7 @@ const useConnectToBroker = () => {
 
         try {
             setLoading(true)
-            await client.end()
+            await client.endAsync()
             setClient(null)
             setLoading(false)
             changeMessage('Disconnected.')

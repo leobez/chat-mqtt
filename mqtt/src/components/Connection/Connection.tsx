@@ -6,15 +6,11 @@ import Client from '../Client/Client'
 const Connection = () => {
 
     const {loading, connect, disconnect, client} = useConnectToBroker()
+    const [connectionString, setConnectionString] = useState<string>('')
 
-    /* STATES WITH BASE VALUES FOR TESTING - SET IT TO EMPTY LATER */
-    const [protocol, setProtocol]   = useState<string>('ws')
-    const [server, setServer]       = useState<string>('broker.hivemq.com')
-    const [port, setPort]           = useState<number|null>(8000)
-
-    const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
+    const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
-        await connect(protocol, server, port)
+        connect(connectionString)
     }
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
@@ -35,51 +31,21 @@ const Connection = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="protocol">Protocol:</label>
+                    <label htmlFor="conString">Connection String: </label>
                     <input 
                     type="text" 
-                    name='protocol'
-                    onChange={(e) => setProtocol(e.target.value)}
-                    value={protocol}
-                    placeholder='ws'
+                    name='conString'
+                    onChange={(e) => setConnectionString(e.target.value)}
+                    value={connectionString}
+                    placeholder='ws://broker.hivemq.com:8000/mqtt'
                     />
                 </div>
 
-                <div>
-                    <label htmlFor="server">Server:</label>
-                    <input 
-                    type="text" 
-                    name='server'
-                    onChange={(e) => setServer(e.target.value)}
-                    value={server}
-                    placeholder='broker.hivemq.com'
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="port">Port:</label>
-                    <input 
-                    type="text" 
-                    name='port'
-                    onChange={(e) => setPort(Number(e.target.value))}
-                    value={port?.toString()}
-                    placeholder='8000'
-                    />
-                </div>
-
-                <div className={styles.full_url}>
-                    <h2>Your connection string looks like this:</h2>
-                    <div>
-                        {protocol.length===0 ? (<h2>protocol</h2>) : (<h2>{protocol}</h2>)}
-                        <h2>://</h2>
-                        {server.length===0 ? (<h2>server</h2>) : (<h2>{server}</h2>)}
-                        <h2>:</h2>
-                        {!port ? (<h2>port</h2>) : (<h2>{port}</h2>)}
-                        <h2>/mqtt</h2>
-                    </div>
-                </div>
-
-                <input type="submit" value='Connect'/>
+                {loading ? (
+                    <input type="submit" value='Connecting...' disabled/>
+                ) : (
+                    <input type="submit" value='Connect'/>
+                )}  
                 
             </form>
 

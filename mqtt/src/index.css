@@ -41,7 +41,6 @@ form > div {
     padding: 5px;
 }
 form > div > label {
-    width: 80px;
     display: flex;
     align-items: center;
 }

@@ -8,15 +8,3 @@
     border: 2px solid black;
     padding: 10px;
 }
-
-.full_url {
-    display: flex;
-    gap: 10px;
-}
-.full_url > div {
-    display: flex;
-    gap: 2px;
-}
-.full_url > div > h2 {
-    margin: 0px 2px;
-}
