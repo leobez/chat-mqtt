@@ -16,23 +16,26 @@ function App() {
         <div className="App">
             <FeedbackMessageProvider>
                 <ClientContextProvider>
-                    
+
                     <Header/>
 
-                    <BrowserRouter>
-                    
-                        <Navbar/>
+                    <main>
+                        <BrowserRouter>
+                        
 
-                        <Routes>
-                            <Route path='/' element={<Connection/>}></Route>
-                            <Route path='/about' element={<About/>}></Route>
-                            <Route path='*' element={<Page404/>}></Route>
-                        </Routes>
+                            <Navbar/>
 
-                    </BrowserRouter>
+                            <Routes>
+                                <Route path='/' element={<Connection/>}></Route>
+                                <Route path='/about' element={<About/>}></Route>
+                                <Route path='*' element={<Page404/>}></Route>
+                            </Routes>
+
+                        </BrowserRouter>
+                    </main>
 
                     {/* FOR TESTING PURPOSES */}
-                    <div style={{height: '1000px'}}></div>
+                    {/* <div style={{height: '1000px'}}></div> */}
 
                     <Footer/>
 

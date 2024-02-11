@@ -10,7 +10,6 @@
 
 div#root {
     height: 100%;
-    width: 100%;
     padding: 2px;
 }
 
@@ -20,6 +19,7 @@ p {
 
 a {
     font-size: 16px;
+    text-decoration: none;
 }
 
 h1 {
