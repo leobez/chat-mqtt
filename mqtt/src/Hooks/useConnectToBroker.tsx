@@ -74,7 +74,7 @@ const useConnectToBroker = () => {
             await client.endAsync()
             setClient(null)
             setLoading(false)
-            changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'good'))
+            changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'bad'))
         } catch (error) {
             setLoading(false)
             console.log(error)

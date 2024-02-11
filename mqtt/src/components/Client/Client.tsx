@@ -74,12 +74,10 @@ const Client = ({client}:Prop) => {
                                     </div>
                                 ))}
                             </div>
-
-                            <Chat client={client} subscribedTopics={subscribedTopics}/>
-
                         </>
                     }
-                    
+
+                    <Chat client={client} subscribedTopics={subscribedTopics}/>
 
                 </>
             }

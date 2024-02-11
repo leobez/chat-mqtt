@@ -10,7 +10,9 @@ const Connection = () => {
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
-        connect(connectionString)
+        const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
+        //connect(connectionString)
+        connect(tempConectionStringForTesting)
     }
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {

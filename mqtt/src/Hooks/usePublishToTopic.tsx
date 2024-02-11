@@ -11,14 +11,14 @@ const usePublishToTopic = () => {
     const publish = async(client:MqttClient, topic:string, message:string):Promise<void> => {
 
         if (topic.trim() === '') {
-            console.log('Invalid topic.')
-            changeFeedbackMessage(new FeedbackMessage('Invalid topic.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Choose a topic.', 'bad'))
+            console.log('Choose a topic.')
             return;
         }
 
         if (message.trim() === '') {
-            console.log('Invalid message.')
             changeFeedbackMessage(new FeedbackMessage('Invalid message.', 'bad'))
+            console.log('Invalid message.')
             return;
         }
 
