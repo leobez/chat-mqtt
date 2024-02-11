@@ -21,6 +21,8 @@ function App() {
                     <Connection/>
                 </main>
 
+                <div style={{height: '1000px'}}></div>
+
                 <Footer/>
 
             </MessageProvider>

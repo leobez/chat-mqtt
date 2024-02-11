@@ -24,6 +24,7 @@ const useConnectToBroker = () => {
         }
 
         try {
+            
             setLoading(true)
 
             const mqttClient:MqttClient = mqtt.connect(connectionString)
