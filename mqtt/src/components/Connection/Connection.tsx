@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import styles from './Connection.module.css'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
+import Feedback from '../Feedback/Feedback'
 
 const Connection = () => {
 
@@ -11,8 +12,8 @@ const Connection = () => {
     const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
         const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
-        connect(connectionString)
-        //connect(tempConectionStringForTesting)
+        //connect(connectionString)
+        connect(tempConectionStringForTesting)
     }
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
@@ -23,6 +24,8 @@ const Connection = () => {
     return (
         <div className={styles.connection}>
             
+            <Feedback/>
+
             {/* CONNECT FORM */}
             <form onSubmit={handleSubmit} className={styles.form}>
 
