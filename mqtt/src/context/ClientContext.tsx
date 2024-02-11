@@ -1,9 +1,10 @@
 import mqtt, { MqttClient } from "mqtt";
 import { createContext, useState } from "react";
 
+/* ? cant do it without any, so leave it for now */
 const ClientContext = createContext({
-    client: null,
-    changeClient: (client:MqttClient) => {}
+    client: (mqtt.connect('') || null) as any,
+    changeClient: (client:MqttClient|null) => {}
 })
 
 export const ClientContextProvider = ({children}:any) => {
