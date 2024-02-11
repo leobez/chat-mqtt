@@ -25,6 +25,7 @@ const Chat = ({client, subscribedTopics}: Props) => {
         const P_feedbackMessage = document.createElement('p')
         const P_content = document.createTextNode(`${feedbackMessage.message}`)
         feedbackMessage.status === 'good' ? P_feedbackMessage.style.color = 'green' : P_feedbackMessage.style.color = 'red'
+        P_feedbackMessage.style.fontWeight = 'bold'
         P_feedbackMessage.appendChild(P_content)
         messagesRef.current.appendChild(P_feedbackMessage)
 

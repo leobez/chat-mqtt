@@ -11,8 +11,8 @@ const Connection = () => {
     const handleSubmit = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
         const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
-        //connect(connectionString)
-        connect(tempConectionStringForTesting)
+        connect(connectionString)
+        //connect(tempConectionStringForTesting)
     }
 
     const handleSubmitDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
@@ -41,6 +41,14 @@ const Connection = () => {
                     value={connectionString}
                     placeholder='ws://broker.hivemq.com:8000/mqtt'
                     />
+                </div>
+
+                <div className={styles.examples}>
+                    <h2>Example of connection strings:</h2>
+                    <ul>
+                        <li>ws://broker.hivemq.com:8000/mqtt</li>
+                        <li>ws://test.mosquitto.org:8080</li>
+                    </ul>
                 </div>
 
                 {loading ? (
