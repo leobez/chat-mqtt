@@ -1,6 +1,7 @@
 .connectioncontainer {
     display: flex;
     gap: 2px;
+    flex-basis: 95%;
 }
 .connectioncontainer > div {
     flex-basis: 50%;
@@ -10,12 +11,18 @@
     flex-direction: column;
     gap: 2px;
 }
-
-.feedbackcontainer {}
-
+.feedbackcontainer {
+    flex-basis: 15%;
+}
 .connection > form {
     border: 2px solid black;
     padding: 10px;
+}
+.connection > form:nth-child(2) {
+    flex-basis: 75%;
+}
+.connection > form:nth-child(3) {
+    flex-basis: 10%;
 }
 
 .examples {

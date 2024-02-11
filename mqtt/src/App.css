@@ -12,6 +12,9 @@
 .App main {
     flex: 1 1 auto;
     max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 .App footer {
     flex: 0 1 120px;

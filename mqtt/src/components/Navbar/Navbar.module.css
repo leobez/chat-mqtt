@@ -1,5 +1,6 @@
 .navbar {
     width: 100%;
+    flex-basis: 5%;
 }
 .navbar > ul {
     width: 100%;

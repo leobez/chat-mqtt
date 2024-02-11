@@ -35,7 +35,7 @@ const Connection = () => {
 
                 <div>
                     <h1>
-                        Connect to MQTT broker:
+                        Connect to an MQTT broker:
                     </h1>
                 </div>
 
