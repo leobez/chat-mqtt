@@ -1,8 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
 import useReadFromClient from '../../hooks/useReadFromClient'
-import Message from '../../classes/Message'
+import ClientMessage from '../../classes/ClientMessage'
 import { MqttClient } from 'mqtt'
 
 type Props = {
@@ -30,7 +30,7 @@ const Chat = ({client, subscribedTopics}: Props) => {
 
             <div className={styles.messages}>
                 {/* MESSAGES FROM TOPICS */}
-                {messages && messages.map((msg:Message, index) => (
+                {messages && messages.map((msg:ClientMessage, index) => (
                     <p key={index}>
                         <span>[ {msg.topic} ] : {msg.content}</span>
                     </p>

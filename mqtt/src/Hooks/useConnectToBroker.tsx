@@ -1,25 +1,25 @@
 import { useContext, useState } from "react"
 import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
-import MessageContext from "../context/MessageContext"
-import MessageAndStatus from "../classes/MessageAndStatus"
+import FeedbackMessageContext from "../context/FeedbackMessageContext"
+import FeedbackMessage from "../classes/FeedbackMessage"
 
 const useConnectToBroker = () => {
     
-    const {changeMessageAndStatus} = useContext(MessageContext)
+    const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
     const [loading, setLoading] = useState<boolean>(false)
     const [client, setClient] = useState<MqttClient|null>(null)
 
     const connect = async(connectionString:string):Promise<void> => {
 
         if (connectionString.trim() === '') {
-            changeMessageAndStatus(new MessageAndStatus('Connection string empty.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Connection string empty.', 'bad'))
             console.log('Connection string empty.')
             return;
         }
 
         if (client !== null) {
-            changeMessageAndStatus(new MessageAndStatus('Already connected.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Already connected.', 'bad'))
             console.log('Already connected.')
             return;
         }
@@ -29,9 +29,9 @@ const useConnectToBroker = () => {
             const mqttClient:MqttClient = mqtt.connect(connectionString)
             mqttClient.stream.on('error', async(err) => {
                 if (err.message === 'WebSocket error') { 
-                    changeMessageAndStatus(new MessageAndStatus('Connection failed.', 'bad'))
+                    changeFeedbackMessage(new FeedbackMessage('Connection failed.', 'bad'))
                 } else {
-                    changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
+                    changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
                 }
                 await mqttClient.endAsync()
                 setClient(null)
@@ -41,7 +41,7 @@ const useConnectToBroker = () => {
             mqttClient.stream.on('connect', () => {
                 setClient(mqttClient)
                 setLoading(false)
-                changeMessageAndStatus(new MessageAndStatus('Connected.', 'good'))
+                changeFeedbackMessage(new FeedbackMessage('Connected.', 'good'))
             })  
             
         } catch (error:any) {
@@ -49,9 +49,9 @@ const useConnectToBroker = () => {
             console.log(error)
 
             if (error.message === 'Missing protocol') {
-                changeMessageAndStatus(new MessageAndStatus('Connection string is missing protocol.', 'bad'))
+                changeFeedbackMessage(new FeedbackMessage('Connection string is missing protocol.', 'bad'))
             } else {
-                changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
+                changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
             }
         }
     }
@@ -60,7 +60,7 @@ const useConnectToBroker = () => {
 
         if (!client) {
             console.log('Already disconnected.')
-            changeMessageAndStatus(new MessageAndStatus('Already disconnected.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Already disconnected.', 'bad'))
             return;
         }
 
@@ -69,11 +69,11 @@ const useConnectToBroker = () => {
             await client.endAsync()
             setClient(null)
             setLoading(false)
-            changeMessageAndStatus(new MessageAndStatus('Disconnected.', 'good'))
+            changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'good'))
         } catch (error) {
             setLoading(false)
             console.log(error)
-            changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
         }
     }
 

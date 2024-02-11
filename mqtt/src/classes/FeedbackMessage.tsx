@@ -1,4 +1,4 @@
-export default class MessageAndStatus {
+export default class FeedbackMessage {
     public message
     public status 
 

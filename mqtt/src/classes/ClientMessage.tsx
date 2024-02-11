@@ -1,4 +1,5 @@
-export default class Message {
+export default class ClientMessage {
+    
     public topic
     public content
 

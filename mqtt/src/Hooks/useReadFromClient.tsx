@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import Message from "../classes/Message"
+import ClientMessage from "../classes/ClientMessage"
 import { MqttClient } from "mqtt"
 
 const useReadFromClient = (client:MqttClient) => {
 
-    const [messages, setMessages] = useState<Message[]>([])
+    const [messages, setMessages] = useState<ClientMessage[]>([])
 
     useEffect(() => {
         client.on('message', (topic:string, content:any) => {
-            const message = new Message(topic, content.toString())
+            const message = new ClientMessage(topic, content.toString())
             console.log('New message: ', message)
             setMessages(prev => [...prev, message])
         })

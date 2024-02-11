@@ -4,13 +4,13 @@ import Feedback from './components/Feedback/Feedback'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Information from './components/Information/Information'
-import { MessageProvider } from './context/MessageContext'
+import { FeedbackMessageProvider } from './context/FeedbackMessageContext'
 
 function App() {
 
     return (
         <div className="App">
-            <MessageProvider>
+            <FeedbackMessageProvider>
 
                 <Header/>
 
@@ -21,11 +21,12 @@ function App() {
                     <Connection/>
                 </main>
 
+                {/* FOR TESTING PURPOSES */}
                 <div style={{height: '1000px'}}></div>
 
                 <Footer/>
 
-            </MessageProvider>
+            </FeedbackMessageProvider>
         </div>
     )
 

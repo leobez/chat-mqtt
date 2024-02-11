@@ -1,24 +1,24 @@
 import { useContext, useState } from "react"
-import MessageContext from "../context/MessageContext"
 import { MqttClient } from "mqtt"
-import MessageAndStatus from "../classes/MessageAndStatus"
+import FeedbackMessageContext from "../context/FeedbackMessageContext"
+import FeedbackMessage from "../classes/FeedbackMessage"
 
 const usePublishToTopic = () => {
 
-    const {changeMessageAndStatus} = useContext(MessageContext)
+    const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
     const [loading, setLoading] = useState<boolean>(false)
 
     const publish = async(client:MqttClient, topic:string, message:string):Promise<void> => {
 
         if (topic.trim() === '') {
             console.log('Invalid topic.')
-            changeMessageAndStatus(new MessageAndStatus('Invalid topic.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Invalid topic.', 'bad'))
             return;
         }
 
         if (message.trim() === '') {
             console.log('Invalid message.')
-            changeMessageAndStatus(new MessageAndStatus('Invalid message.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Invalid message.', 'bad'))
             return;
         }
 
@@ -27,11 +27,11 @@ const usePublishToTopic = () => {
             await client.publish(topic, message)
             console.log('Message published.')
             setLoading(false)
-            changeMessageAndStatus(new MessageAndStatus('Message published.', 'good'))
+            changeFeedbackMessage(new FeedbackMessage('Message published.', 'good'))
         } catch (error) {
             setLoading(false)
             console.log(error)
-            changeMessageAndStatus(new MessageAndStatus('Something went wrong.', 'bad'))
+            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
         }
     }
 
