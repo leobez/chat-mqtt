@@ -5,16 +5,28 @@ import FeedbackMessageContext from '../../context/FeedbackMessageContext'
 const Feedback = () => {
 
     /* SAMPLE SCROLLBAR
-    
-    {feedbackMessage.status === 'good' &&
-                <div className={`${styles['scrollable-container']} ${styles['good']}`}>
-                    <h1>{feedbackMessage.message}</h1>
-                </div>
-            }     
+        <div className={`${styles['scrollable-container']} ${styles['good']}`}>    
     */
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const feedbackRef:any = useRef()        
+
+    const add_element = (PARENT:HTMLElement, CHILD:HTMLElement):void => {
+        CHILD.classList.add(`${styles['fade-in']}`)
+        PARENT.appendChild(CHILD)
+
+        setTimeout(function () {
+            remove_element(PARENT, CHILD);
+        }, 3500);
+    }
+
+    const remove_element = (PARENT:HTMLElement, CHILD:HTMLElement):void => {
+        CHILD.classList.add(`${styles['fade-out']}`)
+
+        CHILD.addEventListener("animationend", function () {
+            PARENT.removeChild(CHILD)
+        }, { once: true });
+    }
 
     useEffect(() => {
 
@@ -34,18 +46,12 @@ const Feedback = () => {
         const TEXT_content:any = document.createTextNode(`${message}`)
         const H1_message:HTMLElement = document.createElement('h1')
         H1_message.appendChild(TEXT_content)
-
         DIV_feedback.appendChild(H1_message)
-        DIV_feedbackscreen.appendChild(DIV_feedback)
 
-        // Remove class to make element disappear
-        setTimeout(() => {
-            DIV_feedbackscreen.removeChild(DIV_feedback)
-        }, 3000)
-
+        add_element(DIV_feedbackscreen, DIV_feedback)
+        
     }, [feedbackMessage])
         
-
     return ( 
         <div className={styles.feedbackscreen} ref={feedbackRef}>
 
