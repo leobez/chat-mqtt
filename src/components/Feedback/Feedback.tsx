@@ -17,7 +17,7 @@ const Feedback = () => {
 
         setTimeout(function () {
             remove_element(PARENT, CHILD);
-        }, 3500);
+        }, 2500);
     }
 
     const remove_element = (PARENT:HTMLElement, CHILD:HTMLElement):void => {
