@@ -20,11 +20,18 @@
 }
 .connection > form:nth-child(2) {
     flex-basis: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
+.connection > form:nth-child(2) > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}   
 .connection > form:nth-child(3) {
     flex-basis: 10%;
 }
-
 .examples {
     display: flex;
     flex-direction: column;
@@ -35,5 +42,8 @@
 }
 .examples > ul > li{
     display: inline;
-    text-indent: 10px;
+}
+
+.clientcontainer {
+    flex-basis: 75%;
 }

@@ -40,13 +40,12 @@ const Connection = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="conString">Connection String: </label>
+                    <label htmlFor="conString">Enter your connection string:</label>
                     <input 
                     type="text" 
                     name='conString'
                     onChange={(e) => setConnectionString(e.target.value)}
                     value={connectionString}
-                    placeholder='ws://broker.hivemq.com:8000/mqtt'
                     />
                 </div>
 
@@ -75,7 +74,8 @@ const Connection = () => {
 
             {/* STATES FROM CONNECTION */}
             <div className={styles.clientcontainer}>
-                {loading && <div><p>Connecting to server...</p></div>}
+                {loading && !client && <div><p>Connecting to server...</p></div>}
+                {loading && client && <div><p>Disconnecting from server...</p></div>}
                 {client && <Client client={client}></Client>} 
             </div>
 

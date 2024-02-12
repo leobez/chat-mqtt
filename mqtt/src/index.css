@@ -1,4 +1,7 @@
 :root {
+    --color-01: #313338;
+    --color-02: #2B2D31;
+    --color-03: #1E1F22;
 }
 
 * {
@@ -35,22 +38,9 @@ h2 {
 }
 
 /* FORMS */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-form > div {
-    display: flex;
-    padding: 5px;
-}
-form > div > label {
-    display: flex;
-    align-items: center;
-}
 form > div > input[type='text'] {
-    width: 200px;
-    height: 30px;
+    width: 250px;
+    height: 40px;
     padding: 3px;
     font-size: 14px;
 }
