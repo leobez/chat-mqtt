@@ -17,16 +17,53 @@ const Client = ({client}:Prop) => {
     }, [subscribedTopics])
 
     const [topic, setTopic] = useState<string>('')
+    const [chosenTopic, setChosenTopic] = useState<string>('')
 
-    const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
+    useEffect(() => {
+        console.log('chosenTopic: ', chosenTopic)
+    }, [chosenTopic])
+
+    const handleSubscribe = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
         await subscribe(topic, client)
     }
 
-    const handleSubmitUnsubscribe = async(e:any):Promise<void> => {
+    const handleUnsubscribe = async(e:any):Promise<void> => {
         e.preventDefault()
-        console.log('Unsubing from: ', e.target.id)
-        await unsubscribe(e.target.id, client)
+        const selectedTopic = e.target.id
+        console.log('Unsubing from: ',selectedTopic)
+
+        if (chosenTopic === selectedTopic) {
+            setChosenTopic('')
+        }
+
+        await unsubscribe(selectedTopic, client)
+    }
+
+    const handleSelect = (e:any):void => {
+        e.preventDefault()
+        
+        const selectedTopic = e.target.id
+    
+        // Verify if there are no other topics selected
+        if (chosenTopic === '') {
+            setChosenTopic(selectedTopic)
+            e.target.classList.add(`${styles['selected']}`)
+        } else {
+            // Verify if clicked the same
+            if (chosenTopic === selectedTopic) {
+                e.target.classList.remove(`${styles['selected']}`)
+                setChosenTopic('')
+            } else {
+                // Is clicking other, therefore, unselected previous one and selected current one
+                const DIV_previous = document.querySelector(`form#${chosenTopic}`)
+                DIV_previous?.classList.remove(`${styles['selected']}`)
+
+                e.target.classList.add(`${styles['selected']}`)
+                setChosenTopic(selectedTopic)
+            }
+        }
+
     }
 
     return (
@@ -38,11 +75,13 @@ const Client = ({client}:Prop) => {
                     <div className={styles.topicscontainer}>
 
                         <div className={styles.topicsform}>
-                            <h1> User [ {client.options.clientId} ] connected. </h1>
+                            <h2>Current user: {client.options.clientId}</h2>
 
-                            <form onSubmit={handleSubmit} className={styles.form}>
+                            <h2>Current server: {client.options.host}</h2>
 
-                                <p>Enter the topics you want to subscribe: </p>
+                            <form onSubmit={handleSubscribe} className={styles.form}>
+
+                                <p>Enter the topic you want to subscribe: </p>
 
                                 <div>
                                     <label htmlFor="topic"></label>
@@ -61,6 +100,7 @@ const Client = ({client}:Prop) => {
                                 )}
 
                             </form>
+
                         </div>
 
                         <div className={styles.verticalseparator_flex}></div>
@@ -73,11 +113,12 @@ const Client = ({client}:Prop) => {
                                         <h2>Subscribed topics:</h2>
                                         {subscribedTopics && subscribedTopics.map((topic) => (
                                             <div key={topic} className={styles.topics}>
-                                                <form onSubmit={handleSubmitUnsubscribe} id={topic}>
-                                                    <div>
-                                                        <p>{topic}</p>
-                                                        <input type="submit" value='unsub'/>
-                                                    </div>                     
+                                                <p>{topic}</p>
+                                                <form onSubmit={handleSelect} id={topic}>                                              
+                                                    <input type="submit" value='use'/>                 
+                                                </form>
+                                                <form onSubmit={handleUnsubscribe} id={topic}>
+                                                    <input type="submit" value='unsub'/>       
                                                 </form>
                                             </div>
                                         ))}
@@ -91,7 +132,7 @@ const Client = ({client}:Prop) => {
                     </div>
 
                     <div className={styles.chatcontainer}>
-                        <Chat client={client} subscribedTopics={subscribedTopics}/>
+                        <Chat client={client} chosenTopic={chosenTopic}/>
                     </div>
                 </>
             }

@@ -13,6 +13,7 @@
 .App main {
     flex: 1 1 auto;
     width: 1200px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-self: center;

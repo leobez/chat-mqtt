@@ -54,23 +54,3 @@
     background-color: black;
     color: white;
 }
-
-.choose_topic {
-    height: 100%;
-    overflow-x: scroll;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-top: 2px solid black;
-}
-.choose_topic > div {
-    display: flex;
-    gap: 5px;
-}
-
-
-
-
-
-

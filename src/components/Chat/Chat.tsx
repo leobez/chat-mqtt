@@ -8,10 +8,10 @@ import FeedbackMessageContext from '../../context/FeedbackMessageContext'
 
 type Props = {
     client:MqttClient,
-    subscribedTopics:string[]
+    chosenTopic:string
 }
 
-const Chat = ({client, subscribedTopics}: Props) => {
+const Chat = ({client, chosenTopic}: Props) => {
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const messagesRef:any = useRef()
@@ -35,7 +35,6 @@ const Chat = ({client, subscribedTopics}: Props) => {
     const {messages} = useReadFromClient(client)
 
     const [chatMessage, setChatMessage] = useState<string>('')
-    const [chosenTopic, setChosenTopic] = useState<string>('')
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
@@ -71,20 +70,6 @@ const Chat = ({client, subscribedTopics}: Props) => {
                     {loading && <input type="submit" value='Sending message...' disabled/>}
                     {!loading && <input type="submit" value='Send'/>}
 
-                </div>
-
-                <div className={styles.choose_topic}>
-                    {subscribedTopics && subscribedTopics.map((topic) => (
-                        <div key={topic}>
-                            <input 
-                            type="radio" 
-                            name='chosenTopic' 
-                            value={topic}
-                            checked={chosenTopic === topic}
-                            onChange={(e)=>setChosenTopic(e.target.value)}/>
-                            <label htmlFor={topic}>{topic}</label>
-                        </div>
-                    ))}
                 </div>
 
             </form>
