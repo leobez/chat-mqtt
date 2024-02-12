@@ -34,6 +34,11 @@ const Chat = ({client, chosenTopic}: Props) => {
     const {loading, publish} = usePublishToTopic()
     const {messages} = useReadFromClient(client)
 
+    // Scroll message into view
+    useEffect(() => {
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      }, [messages]);
+
     const [chatMessage, setChatMessage] = useState<string>('')
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
@@ -48,7 +53,7 @@ const Chat = ({client, chosenTopic}: Props) => {
 
             {/* MESSAGES FROM TOPICS */}
             <div className={styles.messages} ref={messagesRef}>
-                {messages && messages.map((msg:ClientMessage, index) => (
+                {messages && messages.map((msg:ClientMessage, index:number) => (
                     <p key={index}>
                         <span>[ {msg.topic} ]: </span> {msg.content}
                     </p>
