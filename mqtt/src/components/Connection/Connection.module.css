@@ -5,17 +5,18 @@
 }
 .connectioncontainer > div {
     flex-basis: 50%;
+    border: 2px solid white;
 }
 .connection {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    background-color: white;
 }
 .feedbackcontainer {
     flex-basis: 15%;
 }
 .connection > form {
-    border: 2px solid black;
     padding: 10px;
 }
 .connection > form:nth-child(2) {

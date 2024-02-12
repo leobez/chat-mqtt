@@ -22,9 +22,13 @@
     font-weight: bold;
     color: black;
     border: 2px solid white;
+    transition: 0.3s;
+}
+.navbar > ul > li > a:hover {
+    background-color: var(--color-03);
+    color: white;
 }
 .navbar .isActive {
-    transition: 0.3s;
     color: white;
     background-color: var(--color-03);
 }

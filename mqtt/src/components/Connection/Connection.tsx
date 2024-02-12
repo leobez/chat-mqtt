@@ -40,7 +40,7 @@ const Connection = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="conString">Enter your connection string:</label>
+                    <label htmlFor="conString">Enter the broker URL:</label>
                     <input 
                     type="text" 
                     name='conString'
@@ -50,7 +50,7 @@ const Connection = () => {
                 </div>
 
                 <div className={styles.examples}>
-                    <h2>Example of connection strings:</h2>
+                    <h2>Example of brokers URLs:</h2>
                     <ul>
                         <li>ws://broker.hivemq.com:8000/mqtt</li>
                         <li>ws://test.mosquitto.org:8080</li>
