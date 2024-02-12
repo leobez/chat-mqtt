@@ -17,7 +17,6 @@ html, body {
 
 div#root {
     height: 100%;
-    padding: 2px;
 }
 
 p {
@@ -57,9 +56,4 @@ form > input[type='submit'] {
 form > input[type='submit']:hover {
     color: white;
     background-color: black;
-}
-
-/* CONNECTING... */
-.connecting {
-    
 }

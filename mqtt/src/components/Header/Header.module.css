@@ -2,8 +2,10 @@
     height: 100%;
     display: grid;
     place-items: center;
+    background-color: var(--color-03);
+    border: 2px solid white;
 }
 
 .header a {
-    color: black;
+    color: white;
 }
