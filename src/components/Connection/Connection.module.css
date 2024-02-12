@@ -4,6 +4,27 @@
     flex-basis: 95%;
 }
 
+.connection > form input[type='text'] {
+    width: 250px;
+    height: 40px;
+    padding: 3px;
+    font-size: 14px;
+}
+.connection > form input[type='submit'] {
+    width: 200px;
+    height: 40px;
+    font-weight: bold;
+    border: 2px solid black;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.connection > form input[type='submit']:hover {
+    border-color: white;
+    color: white;
+    background-color: var(--color-03);
+}
+
 .connectioncontainer > div {
     border: 2px solid white;
 }
@@ -41,6 +62,7 @@
     display: flex;
     justify-content: center;
 }
+
 .examples {
     display: flex;
     flex-direction: column;
@@ -53,6 +75,3 @@
     display: inline;
 }
 
-.clientcontainer {
-    flex-basis: 75%;
-}

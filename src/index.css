@@ -37,25 +37,5 @@ h2 {
     font-size: 16px;
 }
 
-/* FORMS */
-form > div > input[type='text'] {
-    width: 250px;
-    height: 40px;
-    padding: 3px;
-    font-size: 14px;
-}
-form > input[type='submit'] {
-    width: 200px;
-    height: 40px;
-    font-weight: bold;
-    border: 2px solid black;
-    font-size: 16px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-form > input[type='submit']:hover {
-    border-color: white;
-    color: white;
-    background-color: var(--color-03);
-}
+
 
