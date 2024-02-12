@@ -1,9 +1,13 @@
 .chat {
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
+
+/* MESSAGES */
 .messages {
-    height: 400px;
+    flex-basis: 80%;
+    max-height: 400px;
     border: 2px solid black;
     overflow-y: scroll;
     display: flex;
@@ -12,14 +16,18 @@
     gap: 10px;
     padding: 10px;
 }
-
-.chat > form {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.messages span{
+    font-weight: bold;
 }
 
+/* SEND MESSAGE FORM */
+.chat > form {
+    padding: 2px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-basis: 20%;
+}
 .send_message {
     width: 100%;
     display: flex;
@@ -43,10 +51,14 @@
 }
 
 .choose_topic {
+    height: 100%;
+    max-width: 640px;
+    overflow-x: scroll;
+    padding: 5px;
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid black;
+    border-top: 2px solid black;
 }
 .choose_topic > div {
     display: flex;

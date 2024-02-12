@@ -29,7 +29,6 @@ const Chat = ({client, subscribedTopics}: Props) => {
         P_feedbackMessage.appendChild(P_content)
         messagesRef.current.appendChild(P_feedbackMessage)
 
-
     }, [feedbackMessage])
 
     const {loading, publish} = usePublishToTopic()
@@ -52,13 +51,13 @@ const Chat = ({client, subscribedTopics}: Props) => {
             <div className={styles.messages} ref={messagesRef}>
                 {messages && messages.map((msg:ClientMessage, index) => (
                     <p key={index}>
-                        <span>[ {msg.topic} ] : {msg.content}</span>
+                        <span>[ {msg.topic} ]: </span> {msg.content}
                     </p>
                 ))}
             </div>
             
             {/* FORM TO SUBMIT A MESSAGE */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.sendmessage}>
 
                 <div className={styles.send_message}>
 
