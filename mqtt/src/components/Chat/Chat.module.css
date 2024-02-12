@@ -8,6 +8,7 @@
 .messages {
     flex-basis: 80%;
     max-height: 400px;
+    max-width: 640.5px;
     border: 2px solid black;
     overflow-y: scroll;
     display: flex;

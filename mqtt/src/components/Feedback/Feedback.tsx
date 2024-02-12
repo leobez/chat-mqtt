@@ -6,25 +6,24 @@ const Feedback = () => {
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
 
-    return (
-        <div className={styles.feedback}>
-
-            {feedbackMessage.message.length > 0 && 
-                <>
-                    {feedbackMessage.status === 'good' ? (
-                        <div className={styles.goodfeedback}>
-                            <h1>{feedbackMessage.message}</h1>
-                        </div>
-                    ) : (
-                        <div className={styles.badfeedback}>
-                            <h1>{feedbackMessage.message}</h1>
-                        </div>
-                    )}
-                </>
-                
-            }
-
-        </div>
+    return ( 
+        <>
+            {feedbackMessage.status === 'good' &&
+                <div className={styles.good}>
+                    <h1>{feedbackMessage.message}</h1>
+                </div>
+            }       
+            {feedbackMessage.status === 'bad' &&
+                <div className={styles.bad}>
+                    <h1>{feedbackMessage.message}</h1>
+                </div>
+            }  
+            {feedbackMessage.status === '' &&
+                <div className={styles.neutral}>
+                    <h1>{feedbackMessage.message}</h1>
+                </div>
+            }     
+        </>
     )
 }
 
