@@ -2,10 +2,10 @@ import './App.css'
 import Page404 from './components/404/Page404'
 import About from './components/About/About'
 import Connection from './components/Connection/Connection'
+import Feedback from './components/Feedback/Feedback'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
-//import Information from './components/Information/Information'
 import { ClientContextProvider } from './context/ClientContext'
 import { FeedbackMessageProvider } from './context/FeedbackMessageContext'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -17,10 +17,11 @@ function App() {
             <FeedbackMessageProvider>
                 <ClientContextProvider>
 
+                    <Feedback/>
+
                     <header>
                         <Header/>
                     </header>
-                    
 
                     <main>
                         <BrowserRouter>

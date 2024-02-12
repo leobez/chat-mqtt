@@ -3,6 +3,6 @@
     display: grid;
     place-items: center;
     background-color: var(--color-03);
-    border: 2px solid white;
+    border-top: 2px solid white;
     color: white;
 }

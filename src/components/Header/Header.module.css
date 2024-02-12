@@ -3,7 +3,7 @@
     display: grid;
     place-items: center;
     background-color: var(--color-03);
-    border: 2px solid white;
+    border-bottom: 2px solid white;
 }
 
 .header a {

@@ -26,10 +26,6 @@ const Connection = () => {
 
             <div className={styles.connection}>
 
-                <div className={styles.feedbackcontainer}>
-                    <Feedback/>
-                </div>
-
                 {/* CONNECT FORM */}
                 <form onSubmit={handleConnect} className={styles.form}>
 
