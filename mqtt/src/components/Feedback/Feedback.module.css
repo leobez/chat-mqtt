@@ -5,7 +5,7 @@
     display: grid;
     place-items: center;
     overflow-x: scroll;
-    background-color: green;
+    background-color: rgb(17, 126, 17);
     color: white;
     border-bottom: 2px solid white;
 }
@@ -17,7 +17,7 @@
     display: grid;
     place-items: center;
     overflow-x: scroll;
-    background-color: red;
+    background-color: rgb(139, 18, 18);
     color: white;
     border-bottom: 2px solid white;
 }

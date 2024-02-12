@@ -2,6 +2,7 @@
     --color-01: #313338;
     --color-02: #2B2D31;
     --color-03: #1E1F22;
+    --color-04: #96989C;
 }
 
 * {
@@ -54,6 +55,7 @@ form > input[type='submit'] {
     cursor: pointer;
 }
 form > input[type='submit']:hover {
+    border-color: white;
     color: white;
-    background-color: black;
+    background-color: var(--color-03);
 }

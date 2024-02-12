@@ -1,10 +1,11 @@
 .client {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
     padding: 10px;
     gap: 10px;
     height: 100%;
+    background-color: var(--color-03);
+    color: white;
 }
 
 /* TOPICSCONTAINER */
@@ -33,7 +34,7 @@
 }
 .verticalseparator_flex {
     height: 100%;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 /* TOPICSCONTAINER -> SUBSCRIBEDTOPICSCONTAINER */
 .subscribedtopicscontainer {
@@ -54,6 +55,8 @@
     display: flex;
     gap: 10px;
     height: 40px;
+    border-bottom: 2px solid white;
+    font-weight: bold;
 }
 .subscribed_topics > .topics > form > div > p {
     width: 150px;
@@ -72,7 +75,8 @@
 }
 .subscribed_topics > .topics > form > div > input[type='submit']:hover {
     color: white;
-    background-color: black;
+    border-color: white;
+    background-color: var(--color-03);
 } 
 
 /* CHATCONTAINER */

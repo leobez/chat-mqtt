@@ -11,12 +11,13 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    background-color: white;
+    background-color: var(--color-03);
 }
 .feedbackcontainer {
     flex-basis: 15%;
 }
 .connection > form {
+    color: white;
     padding: 10px;
 }
 .connection > form:nth-child(2) {
