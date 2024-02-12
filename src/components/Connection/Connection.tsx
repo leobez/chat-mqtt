@@ -2,7 +2,6 @@ import { FormEvent, useState } from 'react'
 import styles from './Connection.module.css'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
-import Feedback from '../Feedback/Feedback'
 
 const Connection = () => {
 
@@ -46,7 +45,7 @@ const Connection = () => {
                 </div>
 
                 <div className={styles.examples}>
-                    <h2>Example of brokers URLs:</h2>
+                    <h2>Example of broker URLs:</h2>
                     <ul>
                         <li>ws://broker.hivemq.com:8000/mqtt</li>
                         <li>ws://test.mosquitto.org:8080</li>

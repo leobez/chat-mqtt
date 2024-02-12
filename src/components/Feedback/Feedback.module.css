@@ -1,13 +1,22 @@
+.feedbackscreen {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  transition: 2s;
+}
+
 .feedback {
   position: absolute;
   width: 300px;
   height: 100px;
   top: 100px;
+  padding: 10px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  padding: 10px;
 }
 
 .good {
@@ -25,7 +34,6 @@
     background-color: rgb(139, 18, 18, 0.900);
     color: white;
 }
-
 
 /* Estilos para a barra de rolagem */
 .scrollable-container::-webkit-scrollbar {

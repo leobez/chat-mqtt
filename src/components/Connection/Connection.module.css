@@ -3,38 +3,43 @@
     gap: 2px;
     flex-basis: 95%;
 }
+
 .connectioncontainer > div {
-    flex-basis: 50%;
     border: 2px solid white;
 }
+.connectioncontainer > div:nth-child(1){
+    width: fit-content;
+    padding: 10px;
+}
+.connectioncontainer > div:nth-child(2){
+    width: 100%;
+}
+
 .connection {
     display: flex;
     flex-direction: column;
     gap: 2px;
     background-color: var(--color-03);
 }
-.feedbackcontainer {
-    width: 100%;
-    flex-basis: 15%;
-    white-space: nowrap;
-}
 .connection > form {
     color: white;
     padding: 10px;
+    display: flex;
+    align-items: center;
 }
-.connection > form:nth-child(2) {
-    flex-basis: 75%;
+.connection > form:nth-child(1) {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
-.connection > form:nth-child(2) > div {
+.connection > form:nth-child(1) > div {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }   
-.connection > form:nth-child(3) {
-    flex-basis: 10%;
+.connection > form:nth-child(2) {
+    display: flex;
+    justify-content: center;
 }
 .examples {
     display: flex;

@@ -12,7 +12,7 @@ const useSubscribeToTopic = () => {
     const subscribe = async(topic:string, client:MqttClient):Promise<void> => {
 
         if (subscribedTopics.includes(topic)) {
-            changeFeedbackMessage(new FeedbackMessage(`Already subscribed to topic '${topic}'`, 'bad'))
+            changeFeedbackMessage(new FeedbackMessage(`Already subscribed to topic.`, 'bad'))
             console.log(`Already subscribed to topic '${topic}'`)
             return;
         }
@@ -27,7 +27,7 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.subscribeAsync(topic)
             setLoading(false)
-            changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic '${topic}'`, 'good'))
+            changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic.`, 'good'))
             setSubscribedTopics((prev) => [...prev, topic])
         } catch (error) {
             setLoading(false)
@@ -55,7 +55,7 @@ const useSubscribeToTopic = () => {
             setLoading(true)
             await client.unsubscribeAsync(topic)
             setLoading(false)
-            changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic '${topic}'`, 'bad'))
+            changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
         } catch (error) {
             setLoading(false)
