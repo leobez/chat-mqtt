@@ -14,7 +14,9 @@
     background-color: var(--color-03);
 }
 .feedbackcontainer {
+    width: 100%;
     flex-basis: 15%;
+    white-space: nowrap;
 }
 .connection > form {
     color: white;

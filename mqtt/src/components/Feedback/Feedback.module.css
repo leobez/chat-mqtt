@@ -1,5 +1,4 @@
 .good {
-    width: 100%;
     padding: 10px;
     height: 100px;
     display: grid;
@@ -11,7 +10,6 @@
 }
 
 .bad {
-    width: 100%;
     padding: 10px;
     height: 100px;
     display: grid;
@@ -23,7 +21,6 @@
 }
 
 .neutral {
-    width: 100%;
     padding: 10px;
     height: 100px;
     display: grid;
@@ -33,3 +30,31 @@
     color: white;
     border-bottom: 2px solid white;
 }
+
+/* Estilos para a barra de rolagem */
+.scrollable-container::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollable-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+  }
+  
+  .scrollable-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  
+  .scrollable-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
+  /* Para navegadores Firefox */
+  .scrollable-container {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  
+  .scrollable-container:hover {
+    scrollbar-color: #555 #f1f1f1;
+  }

@@ -12,8 +12,7 @@
 }
 .App main {
     flex: 1 1 auto;
-    min-width: 100%; /* CHANGE THIS WITH MEDIA QUERY */
-    max-width: 1600px;
+    width: 1400px;
     display: flex;
     flex-direction: column;
     align-self: center;

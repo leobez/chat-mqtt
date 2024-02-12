@@ -9,17 +9,17 @@ const Feedback = () => {
     return ( 
         <>
             {feedbackMessage.status === 'good' &&
-                <div className={styles.good}>
+                <div className={`${styles['scrollable-container']} ${styles['good']}`}>
                     <h1>{feedbackMessage.message}</h1>
                 </div>
             }       
             {feedbackMessage.status === 'bad' &&
-                <div className={styles.bad}>
+                <div className={`${styles['scrollable-container']} ${styles['bad']}`}>
                     <h1>{feedbackMessage.message}</h1>
                 </div>
             }  
             {feedbackMessage.status === '' &&
-                <div className={styles.neutral}>
+                <div className={`${styles['scrollable-container']} ${styles['neutral']}`}>
                     <h1>{feedbackMessage.message}</h1>
                 </div>
             }     
