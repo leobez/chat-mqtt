@@ -7,7 +7,7 @@ import FeedbackMessage from "../classes/FeedbackMessage"
 const useConnectToBroker = () => {
     
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false) // CHANGE THIS TO FALSE
     const [client, setClient] = useState<MqttClient|null>(null)
 
     const connect = async(connectionString:string):Promise<void> => {

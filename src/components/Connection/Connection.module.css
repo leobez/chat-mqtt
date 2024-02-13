@@ -75,3 +75,13 @@
     display: inline;
 }
 
+.clientcontainer {
+    display: grid;
+}
+
+.serverloading {
+    place-self: center;
+    width: fit-content;
+    color: white;
+    font-weight: bold;
+}

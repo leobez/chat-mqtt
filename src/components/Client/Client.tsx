@@ -116,7 +116,7 @@ const Client = ({client}:Prop) => {
                                 </>
                             }
 
-                            {loading && <div><p>Subscribing to topic...</p></div>}
+                            {loading && <div className={styles.topicloading}><p>Subscribing to topic...</p></div>}
 
                         </div>
 

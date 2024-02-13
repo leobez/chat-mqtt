@@ -69,8 +69,8 @@ const Connection = () => {
 
             {/* STATES FROM CONNECTION */}
             <div className={styles.clientcontainer}>
-                {loading && !client && <div><p>Connecting to server...</p></div>}
-                {loading && client && <div><p>Disconnecting from server...</p></div>}
+                {loading && !client && <div className={styles.serverloading}><p>Connecting to server...</p></div>}
+                {loading && client && <div className={styles.serverloading}><p>Disconnecting from server...</p></div>}
                 {client && <Client client={client}></Client>} 
             </div>
 
