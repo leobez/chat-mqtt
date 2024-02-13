@@ -17,19 +17,28 @@ const Chat = ({client, chosenTopic}: Props) => {
     const messagesRef:any = useRef()
 
     useEffect(() => {
-
         if (feedbackMessage.message.length <= 0) return;
         if (!messagesRef.current) return;
         if (feedbackMessage.message === 'Message published.') return;
-
         const P_feedbackMessage = document.createElement('p')
         const P_content = document.createTextNode(`${feedbackMessage.message}`)
         feedbackMessage.status === 'good' ? P_feedbackMessage.style.color = 'green' : P_feedbackMessage.style.color = 'red'
         P_feedbackMessage.style.fontWeight = 'bold'
         P_feedbackMessage.appendChild(P_content)
         messagesRef.current.appendChild(P_feedbackMessage)
-
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }, [feedbackMessage])
+
+    useEffect(() => {
+        console.log('chosen topic: ', chosenTopic)
+        const P_feedbackMessage = document.createElement('p')
+        const P_content = document.createTextNode(`Current topic: ${chosenTopic.length > 0 ? chosenTopic : '<none   >'}`)
+        chosenTopic.length > 0 ? P_feedbackMessage.style.color = 'green' : P_feedbackMessage.style.color = 'red'
+        P_feedbackMessage.style.fontWeight = 'bold'
+        P_feedbackMessage.appendChild(P_content)
+        messagesRef.current.appendChild(P_feedbackMessage)
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }, [chosenTopic])
 
     const {loading, publish} = usePublishToTopic()
     const {messages} = useReadFromClient(client)

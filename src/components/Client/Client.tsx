@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import styles from './Client.module.css'
 import useSubscribeToTopic from '../../hooks/useSubscribeToTopic'
 import Chat from '../Chat/Chat'
