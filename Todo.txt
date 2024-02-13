@@ -1,0 +1,21 @@
+- Use react icons
+
+- About component
+
+- Connection is lost if change route
+    - Warn that the connection will be lost
+    - Prevent connection from being lost	
+
+- Responsivity
+		
+- Test custom scrollbars (topics and chat) on other browsers
+
+- Use context for client state	
+
+- Test options when connecting to server
+		
+- Test behaviour with wildcard topics
+		
+- Add QOS, password and security options
+		
+
