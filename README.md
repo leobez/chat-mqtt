@@ -8,16 +8,16 @@ Link para acessar o site (...)
 
 <hr>
 
-Métodos do módulo MQTT.js
+Métodos do módulo MQTT.js usados.
 
-`método 1`: explicação...
+`connect`: Cria uma conexão entre o cliente e o broker;
 
-`método 1`: explicação...
+`end`: Enecerra a conexão;
 
-`método 1`: explicação...
+`subscribe`: Insecreve o cliente em um tópico;
 
-`método 1`: explicação...
+`unsubscribe`: Desinsecreve o cliente de um tópico;
 
-`método 1`: explicação...
+`publish`: Publica a mensagem no tópico;
 
-`método 1`: explicação...
+`on`: Escuta por 'eventos' no cliente, como o `message`, que é ativado quando uma mensagem é enviada a um dos tópicos no qual o cliente está inscrito;
