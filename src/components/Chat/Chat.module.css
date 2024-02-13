@@ -58,3 +58,30 @@
     background-color: black;
     color: white;
 }
+
+/* CUSTOM SCROLLBAR */
+/* STILL HAVE TO TEST ON OTHER BROWSERS */
+.scrollable_container::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollable_container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+  
+  .scrollable_container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  .scrollable_container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
+  /* FOR FIREFOX */
+  .scrollable_container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-03) var(--color-04);
+  }
+  
+  .scrollable_container:hover {
+    scrollbar-color: var(--color-03) var(--color-04);
+  }

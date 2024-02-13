@@ -62,7 +62,7 @@ const Chat = ({client, chosenTopic}: Props) => {
         <div className={styles.chat}>
 
             {/* MESSAGES FROM TOPICS */}
-            <div className={styles.messages} ref={messagesRef}>
+            <div className={`${styles['messages']} ${styles['scrollable_container']}`} ref={messagesRef}>
                 {messages && messages.map((msg:ClientMessage, index:number) => (
                     <p key={index}>
                         <span>[ {msg.topic} ]: </span> {msg.content}

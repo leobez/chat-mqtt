@@ -103,13 +103,16 @@ const Client = ({client}:Prop) => {
                                         <h2>Subscribed topics:</h2>
                                         {subscribedTopics && subscribedTopics.map((topic) => (
                                             <div key={topic} className={styles.topics}>
-                                                <p>{topic}</p>
+
+                                                <p className={styles.scrollable_container}>{topic}</p>
+
                                                 <form onSubmit={handleSelect} id={topic}>                                              
                                                     <input type="submit" value='use'/>                 
                                                 </form>
                                                 <form onSubmit={handleUnsubscribe} id={topic}>
                                                     <input type="submit" value='unsub'/>       
                                                 </form>
+
                                             </div>
                                         ))}
                                     </div>
