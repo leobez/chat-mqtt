@@ -36,6 +36,7 @@ const Chat = ({client, chosenTopic}: Props) => {
 
     // Scroll message into view
     useEffect(() => {
+        console.log(messages)
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }, [messages]);
 
@@ -72,7 +73,7 @@ const Chat = ({client, chosenTopic}: Props) => {
                         value={chatMessage}
                     />
 
-                    {loading && <input type="submit" value='Sending message...' disabled/>}
+                    {loading && <input type="submit" value='Sending...' disabled/>}
                     {!loading && <input type="submit" value='Send'/>}
 
                 </div>

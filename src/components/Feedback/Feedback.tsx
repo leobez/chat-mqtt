@@ -32,7 +32,9 @@ const Feedback = () => {
 
         const message = feedbackMessage.message
         const status = feedbackMessage.status
-        if (message === '') return;
+        const source = feedbackMessage.source
+
+        if (message === '' || source !== 'connection' ) return;
 
         // Full div
         const DIV_feedbackscreen:HTMLElement = feedbackRef.current

@@ -6,7 +6,10 @@ import FeedbackMessage from "../classes/FeedbackMessage"
 const useSubscribeToTopic = () => {
     
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
+
     const [loading, setLoading] = useState<boolean>(false)
+    const [unsubLoading, setUnsubLoading] = useState<boolean>(false)
+
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
 
     const subscribe = async(topic:string, client:MqttClient):Promise<void> => {
@@ -52,13 +55,13 @@ const useSubscribeToTopic = () => {
         }
 
         try {
-            setLoading(true)
+            setUnsubLoading(true)
             await client.unsubscribeAsync(topic)
-            setLoading(false)
+            setUnsubLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
         } catch (error) {
-            setLoading(false)
+            setUnsubLoading(false)
             console.log(error)
             changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
         }
@@ -69,6 +72,7 @@ const useSubscribeToTopic = () => {
         loading, 
         subscribe,
         unsubscribe,
+        unsubLoading,
         subscribedTopics
     }
 }

@@ -10,18 +10,10 @@ type Prop = {
 
 const Client = ({client}:Prop) => {
 
-    const {loading, subscribe, unsubscribe, subscribedTopics} = useSubscribeToTopic()
-
-    useEffect(() => {
-        console.log('subscribedTopics: ', subscribedTopics)
-    }, [subscribedTopics])
+    const {loading, subscribe, unsubscribe, subscribedTopics, unsubLoading} = useSubscribeToTopic()
 
     const [topic, setTopic] = useState<string>('')
     const [chosenTopic, setChosenTopic] = useState<string>('')
-
-    useEffect(() => {
-        console.log('chosenTopic: ', chosenTopic)
-    }, [chosenTopic])
 
     const handleSubscribe = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
@@ -31,7 +23,7 @@ const Client = ({client}:Prop) => {
     const handleUnsubscribe = async(e:any):Promise<void> => {
         e.preventDefault()
         const selectedTopic = e.target.id
-        console.log('Unsubing from: ',selectedTopic)
+        console.log('Unsubing from: ', selectedTopic)
 
         if (chosenTopic === selectedTopic) {
             setChosenTopic('')
@@ -93,11 +85,9 @@ const Client = ({client}:Prop) => {
                                     />
                                 </div>
 
-                                {loading ? (
-                                    <input type="submit" value='Subscribing to topic...' disabled/>
-                                ) : (
-                                    <input type="submit" value='Subscribe to topic'/>
-                                )}
+                                {loading        && <input type="submit" value='Subscribing to topic...' disabled/>}
+                                {unsubLoading   && <input type="submit" value='Unsubscribing from topic...' disabled/>}
+                                {!loading && !unsubLoading && <input type="submit" value='Subscribe to topic'/>}
 
                             </form>
 
@@ -127,6 +117,7 @@ const Client = ({client}:Prop) => {
                             }
 
                             {loading && <div><p>Subscribing to topic...</p></div>}
+
                         </div>
 
                     </div>
