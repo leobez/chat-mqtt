@@ -3,13 +3,16 @@ import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
 import FeedbackMessage from "../classes/FeedbackMessage"
+import ClientContext from "../context/ClientContext"
+import { MQTTClientContextType } from "../@types/mqtt"
 
 const useConnectToBroker = () => {
     
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
-    const [loading, setLoading] = useState<boolean>(false) // CHANGE THIS TO FALSE
-    const [client, setClient] = useState<MqttClient|null>(null)
+    const [loading, setLoading] = useState<boolean>(false)
 
+    /* UPDATE CLIENT CONTEXT */
+    const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
 
     const connect = async(connectionString:string):Promise<void> => {
 
@@ -40,13 +43,13 @@ const useConnectToBroker = () => {
                 }
 
                 await mqttClient.endAsync()
-                setClient(null)
+                updateClient(null)
                 setLoading(false)
             })
 
             // If connection succeeds
             mqttClient.stream.on('connect', () => {
-                setClient(mqttClient)
+                updateClient(mqttClient)
                 setLoading(false)
                 changeFeedbackMessage(new FeedbackMessage('Connected.', 'good', 'connection'))
             })  
@@ -73,7 +76,7 @@ const useConnectToBroker = () => {
         try {
             setLoading(true)
             await client.endAsync()
-            setClient(null)
+            updateClient(null)
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'bad', 'connection'))
         } catch (error) {
@@ -87,7 +90,6 @@ const useConnectToBroker = () => {
         loading, 
         connect,
         disconnect,
-        client,
     }
 }
 

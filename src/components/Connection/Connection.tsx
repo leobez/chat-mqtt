@@ -1,17 +1,21 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import styles from './Connection.module.css'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
+import ClientContext from '../../context/ClientContext'
+import { MQTTClientContextType } from '../../@types/mqtt'
 
 const Connection = () => {
 
-    const {loading, disconnect, client, connect} = useConnectToBroker()
-
-    const [connectionString, setConnectionString] = useState<string>('')
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     useEffect(() => {
         console.log('client: ', client)
     }, [client])
+
+    const {loading, disconnect, connect} = useConnectToBroker()
+
+    const [connectionString, setConnectionString] = useState<string>('')
 
     const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()

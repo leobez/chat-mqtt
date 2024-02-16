@@ -1,23 +1,23 @@
-import mqtt, { MqttClient} from "mqtt";
-import { createContext, useState } from "react";
+import { MqttClient } from "mqtt";
+import { ReactNode, createContext, useState } from "react";
+import { MQTTClientContextType } from "../@types/mqtt";
 
-interface MqttContextProps {
-    client: MqttClient | null,
-    changeClient: (client:MqttClient|null) => void,
+export const ClientContext = createContext<MQTTClientContextType|null>(null)
+
+type Props = {
+    children: ReactNode
 }
 
-const ClientContext = createContext<MqttContextProps|undefined>(undefined)
-
-export const ClientContextProvider = ({children}:any) => {
+export const ClientContextProvider = ({children}:Props) => {
 
     const [client, setClient] = useState<MqttClient|null>(null)
 
-    const changeClient = (client:MqttClient|null) => {
+    const updateClient = (client: MqttClient|null):void => {
         setClient(client)
     }
 
     return (
-        <ClientContext.Provider value={{client, changeClient}}>
+        <ClientContext.Provider value={{client, updateClient}}>
             {children}
         </ClientContext.Provider>        
     )
