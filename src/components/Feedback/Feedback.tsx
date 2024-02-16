@@ -1,14 +1,12 @@
 import { useContext, useEffect, useRef } from 'react'
 import styles from './Feedback.module.css'
-import FeedbackMessageContext from '../../context/FeedbackContext'
+import { FeedbackContext } from '../../context/FeedbackContext'
+import { FeedbackType } from '../../@types/feedback'
 
 const Feedback = () => {
 
-    /* SAMPLE SCROLLBAR
-        <div className={`${styles['scrollable-container']} ${styles['good']}`}>    
-    */
+    const {feedback} = useContext(FeedbackContext) as FeedbackType
 
-    const {feedbackMessage} = useContext(FeedbackMessageContext)
     const feedbackRef:any = useRef()        
 
     const add_element = (PARENT:HTMLElement, CHILD:HTMLElement):void => {
@@ -30,9 +28,11 @@ const Feedback = () => {
 
     useEffect(() => {
 
-        const message = feedbackMessage.message
-        const status = feedbackMessage.status
-        const source = feedbackMessage.source
+        if (!feedback) return;
+
+        const message = feedback.message
+        const status = feedback.status
+        const source = feedback.source
 
         if (message === '' || source !== 'connection' ) return;
 
@@ -52,11 +52,10 @@ const Feedback = () => {
 
         add_element(DIV_feedbackscreen, DIV_feedback)
         
-    }, [feedbackMessage])
+    }, [feedback])
         
     return ( 
         <div className={styles.feedbackscreen} ref={feedbackRef}>
-
         </div>
     )
 }

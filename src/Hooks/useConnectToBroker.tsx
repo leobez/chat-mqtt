@@ -7,22 +7,20 @@ import FeedbackContext from "../context/FeedbackContext"
 import { FeedbackType, ITFeedback } from "../@types/feedback"
 
 const useConnectToBroker = () => {
-    
-    // Feedback message
+
+    // Context
+    const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
     const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
     const [connectLoading, setConnectLoading] = useState<boolean>(false)
     const [disconnectLoading, setDisconnectLoading] = useState<boolean>(false)
-
-    // Client context
-    const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
     
     useEffect(() => {
         console.log('client: ', client)
     }, [client])
 
-    const createFeedback = (message:string, status:string, source:string|null) => {
+    const createFeedback = (message:string, status:string, source:string|null=null) => {
 
         const newFeedback:ITFeedback = {
             message,

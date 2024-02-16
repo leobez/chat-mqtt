@@ -18,9 +18,7 @@ export const FeedbackContextProvider = ({children}:Props) => {
 
     return (
         <FeedbackContext.Provider value={{feedback, updateFeedback}}>
-
             {children}
-            
         </FeedbackContext.Provider>
     )
 }

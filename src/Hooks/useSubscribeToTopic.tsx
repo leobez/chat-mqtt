@@ -1,38 +1,46 @@
 import { useContext, useState } from "react"
-import FeedbackMessageContext from "../context/FeedbackContext"
-import FeedbackMessage from "../classes/FeedbackMessage"
+import { FeedbackContext } from "../context/FeedbackContext"
 import ClientContext from "../context/ClientContext"
 import { MQTTClientContextType } from "../@types/mqtt"
+import { FeedbackType, ITFeedback } from "../@types/feedback"
 
 const useSubscribeToTopic = () => {
     
-    // Feedback context -> change later
-    const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
-
     // Context
     const {client, topics, updateTopics} = useContext(ClientContext) as MQTTClientContextType
+    const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
     const [subLoading, setSubLoading]       = useState<boolean>(false)
     const [unsubLoading, setUnsubLoading]   = useState<boolean>(false)
 
+    const createFeedback = (message:string, status:string, source:string|null=null) => {
+
+        const newFeedback:ITFeedback = {
+            message,
+            status,
+            source
+        }
+
+        console.log(message)
+
+        updateFeedback(newFeedback)
+    }
+
     const subscribe = async(topic:string):Promise<void> => {
 
         if (topics.includes(topic)) {
-            changeFeedbackMessage(new FeedbackMessage(`Already subscribed to topic.`, 'bad'))
-            console.log(`Already subscribed to topic '${topic}'`)
+            createFeedback(`Already subscribed to topic.`, 'bad')
             return;
         }
 
         if (topic.trim() === '') {
-            changeFeedbackMessage(new FeedbackMessage('Invalid topic.', 'bad'))
-            console.log('Invalid topic.')
+            createFeedback('Invalid topic.', 'bad')
             return;
         }
 
         if (!client) {
-            changeFeedbackMessage(new FeedbackMessage('Client error.', 'bad'))
-            console.log('Client error')
+            createFeedback('Client error.', 'bad')
             return;
         }
 
@@ -40,12 +48,12 @@ const useSubscribeToTopic = () => {
             setSubLoading(true)
             await client.subscribeAsync(topic)
             setSubLoading(false)
-            changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic.`, 'good'))
+            createFeedback(`Subscribed to topic.`, 'good')
             updateTopics(topic, 'add')
         } catch (error) {
             setSubLoading(false)
             console.log(error)
-            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
+            createFeedback('Something went wrong.', 'bad')
         }
 
     }
@@ -53,20 +61,17 @@ const useSubscribeToTopic = () => {
     const unsubscribe = async(topic:string):Promise<void> => {
 
         if (!topics.includes(topic)) {
-            changeFeedbackMessage(new FeedbackMessage('Topic not subscribed.', 'bad'))
-            console.log('Topic not subscribed.')
+            createFeedback('Topic not subscribed.', 'bad')
             return;
         }
 
         if (topic.trim() === '') {
-            changeFeedbackMessage(new FeedbackMessage('Invalid topic.', 'bad'))
-            console.log('Invalid topic.')
+            createFeedback('Invalid topic.', 'bad')
             return;
         }
 
         if (!client) {
-            changeFeedbackMessage(new FeedbackMessage('Client error.', 'bad'))
-            console.log('Client error')
+            createFeedback('Client error.', 'bad')
             return;
         }
 
@@ -74,12 +79,12 @@ const useSubscribeToTopic = () => {
             setUnsubLoading(true)
             await client.unsubscribeAsync(topic)
             setUnsubLoading(false)
-            changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
+            createFeedback(`Unsubscribed from topic.`, 'bad')
             updateTopics(topic, 'remove')
         } catch (error) {
             setUnsubLoading(false)
             console.log(error)
-            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
+            createFeedback('Something went wrong.', 'bad')
         }
 
     }

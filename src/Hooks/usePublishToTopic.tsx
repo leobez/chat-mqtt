@@ -1,50 +1,57 @@
 import { useContext, useState } from "react"
-import FeedbackMessageContext from "../context/FeedbackContext"
-import FeedbackMessage from "../classes/FeedbackMessage"
+import { FeedbackContext } from "../context/FeedbackContext"
 import ClientContext from "../context/ClientContext"
 import { MQTTClientContextType } from "../@types/mqtt"
+import { FeedbackType, ITFeedback } from "../@types/feedback"
 
 const usePublishToTopic = () => {
 
-    // Feedback context -> change later
-    const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
-
     // Context
     const {client} = useContext(ClientContext) as MQTTClientContextType
+    const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Hook states
     const [loading, setLoading] = useState<boolean>(false)
 
+    const createFeedback = (message:string, status:string, source:string|null=null) => {
+
+        const newFeedback:ITFeedback = {
+            message,
+            status,
+            source
+        }
+
+        console.log(message)
+
+        updateFeedback(newFeedback)
+    }
+
     const publish = async(topic:string, message:string):Promise<void> => {
 
         if (topic.trim() === '') {
-            changeFeedbackMessage(new FeedbackMessage('Choose a topic.', 'bad'))
-            console.log('Choose a topic.')
+            createFeedback('Choose a topic.', 'bad')
             return;
         }
 
         if (message.trim() === '') {
-            changeFeedbackMessage(new FeedbackMessage('Invalid message.', 'bad'))
-            console.log('Invalid message.')
+            createFeedback('Invalid message.', 'bad')
             return;
         }
 
         if (!client) {
-            changeFeedbackMessage(new FeedbackMessage('Client error.', 'bad'))
-            console.log('Client error')
+            createFeedback('Client error.', 'bad')
             return;
         }
 
         try {
             setLoading(true)
             await client.publishAsync(topic, message)
-            console.log('Message published.')
             setLoading(false)
-            changeFeedbackMessage(new FeedbackMessage('Message published.', 'good'))
+            createFeedback('Message published.', 'good')
         } catch (error) {
             setLoading(false)
             console.log(error)
-            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
+            createFeedback('Something went wrong.', 'bad')
         }
     }
 
