@@ -15,7 +15,18 @@ export const ClientContextProvider = ({children}:Props) => {
     const [messages, setMessages] = useState<Message[]>([])
 
     const updateClient = (client: MqttClient|null):void => {
+        
         setClient(client)
+
+        // Add listener for messages
+        if (client) {
+            client.on('message', (topic:string, content:any) => {
+                const message:Message = {topic: topic, message: content.toString()}
+                console.log('New message: ', message)
+                setMessages((prev) => [...prev, message])
+            })
+        }
+
     }
 
     const updateTopics = (topic:string, action:string):void => {
@@ -27,16 +38,12 @@ export const ClientContextProvider = ({children}:Props) => {
         }
     }
 
-    const updateMessages = (message:Message):void => {
-        setMessages((prev) => [...prev, message])
-    }
-
     return (
-        
+
         <ClientContext.Provider value={{
             client, updateClient,
             topics, updateTopics,
-            messages, updateMessages
+            messages
         }}>
 
             {children}

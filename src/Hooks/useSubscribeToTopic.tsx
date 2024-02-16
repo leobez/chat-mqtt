@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
 import FeedbackMessage from "../classes/FeedbackMessage"
 import ClientContext from "../context/ClientContext"
@@ -9,16 +8,14 @@ const useSubscribeToTopic = () => {
     
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
 
-    const {client} = useContext(ClientContext) as MQTTClientContextType
+    const {client, topics, updateTopics} = useContext(ClientContext) as MQTTClientContextType
 
     const [loading, setLoading] = useState<boolean>(false)
     const [unsubLoading, setUnsubLoading] = useState<boolean>(false)
 
-    const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
-
     const subscribe = async(topic:string):Promise<void> => {
 
-        if (subscribedTopics.includes(topic)) {
+        if (topics.includes(topic)) {
             changeFeedbackMessage(new FeedbackMessage(`Already subscribed to topic.`, 'bad'))
             console.log(`Already subscribed to topic '${topic}'`)
             return;
@@ -35,7 +32,7 @@ const useSubscribeToTopic = () => {
             await client?.subscribeAsync(topic)
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic.`, 'good'))
-            setSubscribedTopics((prev) => [...prev, topic])
+            updateTopics(topic, 'add')
         } catch (error) {
             setLoading(false)
             console.log(error)
@@ -46,7 +43,7 @@ const useSubscribeToTopic = () => {
 
     const unsubscribe = async(topic:string):Promise<void> => {
 
-        if (!subscribedTopics.includes(topic)) {
+        if (!topics.includes(topic)) {
             changeFeedbackMessage(new FeedbackMessage('Topic not subscribed.', 'bad'))
             console.log('Topic not subscribed.')
             return;
@@ -63,7 +60,7 @@ const useSubscribeToTopic = () => {
             await client?.unsubscribeAsync(topic)
             setUnsubLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
-            setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))
+            updateTopics(topic, 'remove')
         } catch (error) {
             setUnsubLoading(false)
             console.log(error)
@@ -77,7 +74,6 @@ const useSubscribeToTopic = () => {
         subscribe,
         unsubscribe,
         unsubLoading,
-        subscribedTopics
     }
 }
 

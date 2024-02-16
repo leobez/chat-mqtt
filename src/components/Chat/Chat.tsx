@@ -5,7 +5,7 @@ import useReadFromClient from '../../hooks/useReadFromClient'
 import ClientMessage from '../../classes/ClientMessage'
 import FeedbackMessageContext from '../../context/FeedbackMessageContext'
 import ClientContext from '../../context/ClientContext'
-import { MQTTClientContextType } from '../../@types/mqtt'
+import { MQTTClientContextType, Message } from '../../@types/mqtt'
 
 type Props = {
     chosenTopic:string
@@ -14,7 +14,8 @@ type Props = {
 const Chat = ({chosenTopic}: Props) => {
 
     // Client context
-    const {client} = useContext(ClientContext) as MQTTClientContextType
+    const {client, messages} = useContext(ClientContext) as MQTTClientContextType
+
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const messagesRef:any = useRef()
@@ -44,11 +45,10 @@ const Chat = ({chosenTopic}: Props) => {
     }, [chosenTopic])
 
     const {loading, publish} = usePublishToTopic()
-    const {messages} = useReadFromClient()
 
     // Scroll message into view
     useEffect(() => {
-        console.log(messages)
+        console.log('messages: ', messages)
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }, [messages]);
 
@@ -66,9 +66,9 @@ const Chat = ({chosenTopic}: Props) => {
 
             {/* MESSAGES FROM TOPICS */}
             <div className={`${styles['messages']} ${styles['scrollable_container']}`} ref={messagesRef}>
-                {messages && messages.map((msg:ClientMessage, index:number) => (
+                {messages && messages.map((msg:Message, index:number) => (
                     <p key={index}>
-                        <span>[ {msg.topic} ]: </span> {msg.content}
+                        <span>[ {msg.topic} ]: </span> {msg.message}
                     </p>
                 ))}
             </div>

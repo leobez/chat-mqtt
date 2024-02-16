@@ -1,6 +1,11 @@
-import { FormEvent, useContext, useState } from 'react'
+// Style
 import styles from './Connection.module.css'
+
+// Hooks
+import { FormEvent, useContext, useState } from 'react'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
+
+// Context
 import Client from '../Client/Client'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType } from '../../@types/mqtt'

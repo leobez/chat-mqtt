@@ -13,6 +13,7 @@ const useConnectToBroker = () => {
 
     /* UPDATE CLIENT CONTEXT */
     const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
+    
     useEffect(() => {
         console.log('client: ', client)
     }, [client])

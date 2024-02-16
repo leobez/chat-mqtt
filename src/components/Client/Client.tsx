@@ -8,9 +8,9 @@ import { MQTTClientContextType } from '../../@types/mqtt'
 const Client = () => {
 
     // Client context
-    const {client} = useContext(ClientContext) as MQTTClientContextType
+    const {client, topics} = useContext(ClientContext) as MQTTClientContextType
 
-    const {loading, subscribe, unsubscribe, subscribedTopics, unsubLoading} = useSubscribeToTopic()
+    const {loading, subscribe, unsubscribe, unsubLoading} = useSubscribeToTopic()
     const [topic, setTopic] = useState<string>('')
     const [chosenTopic, setChosenTopic] = useState<string>('')
 
@@ -96,11 +96,11 @@ const Client = () => {
 
                         <div className={styles.subscribedtopicscontainer}>
 
-                            {subscribedTopics.length > 0 && 
+                            {topics.length > 0 && 
                                 <>
                                     <div className={styles.subscribed_topics}>
                                         <h2>Subscribed topics:</h2>
-                                        {subscribedTopics && subscribedTopics.map((topic) => (
+                                        {topics && topics.map((topic) => (
                                             <div key={topic} className={styles.topics}>
 
                                                 <p className={styles.scrollable_container}>{topic}</p>
