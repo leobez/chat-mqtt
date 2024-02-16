@@ -1,11 +1,12 @@
-- Create context for topis and messages as well
+- Update client context to hold topics and messages as well
+- Update classes + feedbackMessages context with corret type
+
 
 - About component
 
 - Use react icons
 
 - Responsivity
-
 
 
 - Test custom scrollbars (topics and chat) on other browsers
