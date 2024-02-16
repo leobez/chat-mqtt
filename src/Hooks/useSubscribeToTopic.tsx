@@ -7,7 +7,7 @@ import { FeedbackType, ITFeedback } from "../@types/feedback"
 const useSubscribeToTopic = () => {
     
     // Context
-    const {client, topics, updateTopics} = useContext(ClientContext) as MQTTClientContextType
+    const {client, topics, updateTopics, addSystemMessage} = useContext(ClientContext) as MQTTClientContextType
     const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
@@ -31,16 +31,19 @@ const useSubscribeToTopic = () => {
 
         if (topics.includes(topic)) {
             createFeedback(`Already subscribed to topic.`, 'bad')
+            addSystemMessage(`Already subscribed to topic.`)
             return;
         }
 
         if (topic.trim() === '') {
             createFeedback('Invalid topic.', 'bad')
+            addSystemMessage('Invalid topic.')
             return;
         }
 
         if (!client) {
             createFeedback('Client error.', 'bad')
+            addSystemMessage('Client error.')
             return;
         }
 
@@ -48,7 +51,7 @@ const useSubscribeToTopic = () => {
             setSubLoading(true)
             await client.subscribeAsync(topic)
             setSubLoading(false)
-            createFeedback(`Subscribed to topic.`, 'good')
+            addSystemMessage(`Subscribed to topic '${topic}' .`)
             updateTopics(topic, 'add')
         } catch (error) {
             setSubLoading(false)
@@ -62,16 +65,19 @@ const useSubscribeToTopic = () => {
 
         if (!topics.includes(topic)) {
             createFeedback('Topic not subscribed.', 'bad')
+            addSystemMessage('Topic not subscribed.')
             return;
         }
 
         if (topic.trim() === '') {
             createFeedback('Invalid topic.', 'bad')
+            addSystemMessage('Invalid topic.')
             return;
         }
 
         if (!client) {
             createFeedback('Client error.', 'bad')
+            addSystemMessage('Client error.')
             return;
         }
 
@@ -79,7 +85,7 @@ const useSubscribeToTopic = () => {
             setUnsubLoading(true)
             await client.unsubscribeAsync(topic)
             setUnsubLoading(false)
-            createFeedback(`Unsubscribed from topic.`, 'bad')
+            addSystemMessage(`Unsubscribed from topic '${topic}' .`)
             updateTopics(topic, 'remove')
         } catch (error) {
             setUnsubLoading(false)

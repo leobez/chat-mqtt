@@ -38,12 +38,22 @@ export const ClientContextProvider = ({children}:Props) => {
         }
     }
 
+    const addSystemMessage = (message:string):void => {
+
+        const newMessage:Message = {
+            message: message,
+            topic: '<system>'
+        }
+
+        setMessages((prev) => [...prev, newMessage])
+    }
+
     return (
 
         <ClientContext.Provider value={{
             client, updateClient,
             topics, updateTopics,
-            messages
+            messages, addSystemMessage
         }}>
 
             {children}

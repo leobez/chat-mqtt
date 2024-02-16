@@ -1,8 +1,6 @@
-- Refactor feedbackMessages
 - About component
 - Use react icons
 - Responsivity
-
 
 
 - Test custom scrollbars (topics and chat) on other browsers

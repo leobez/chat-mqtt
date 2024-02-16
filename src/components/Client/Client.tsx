@@ -8,7 +8,7 @@ import { MQTTClientContextType } from '../../@types/mqtt'
 const Client = () => {
 
     // Client context
-    const {client, topics} = useContext(ClientContext) as MQTTClientContextType
+    const {client, topics, addSystemMessage} = useContext(ClientContext) as MQTTClientContextType
 
     // Sub hook
     const {subscribe, subLoading, unsubscribe, unsubLoading} = useSubscribeToTopic()
@@ -43,18 +43,20 @@ const Client = () => {
         if (chosenTopic === '') {
             setChosenTopic(selectedTopic)
             e.target.classList.add(`${styles['selected']}`)
+            addSystemMessage(`Current topic: '${selectedTopic}' .`)
         } else {
             // Verify if clicked the same
             if (chosenTopic === selectedTopic) {
                 e.target.classList.remove(`${styles['selected']}`)
                 setChosenTopic('')
+                addSystemMessage(`Current topic: <none>`)
             } else {
-                // Is clicking other, therefore, unselected previous one and selected current one
+                // Is clicking other, therefore, unselect previous one and select current one
                 const DIV_previous = document.querySelector(`form#${chosenTopic}`)
                 DIV_previous?.classList.remove(`${styles['selected']}`)
-
                 e.target.classList.add(`${styles['selected']}`)
                 setChosenTopic(selectedTopic)
+                addSystemMessage(`Current topic: '${selectedTopic}' .`)
             }
         }
 
