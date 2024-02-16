@@ -1,8 +1,6 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from 'react'
 import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
-import useReadFromClient from '../../hooks/useReadFromClient'
-import ClientMessage from '../../classes/ClientMessage'
 import FeedbackMessageContext from '../../context/FeedbackMessageContext'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType, Message } from '../../@types/mqtt'
@@ -15,7 +13,6 @@ const Chat = ({chosenTopic}: Props) => {
 
     // Client context
     const {client, messages} = useContext(ClientContext) as MQTTClientContextType
-
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const messagesRef:any = useRef()

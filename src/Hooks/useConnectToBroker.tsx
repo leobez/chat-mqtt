@@ -8,10 +8,14 @@ import { MQTTClientContextType } from "../@types/mqtt"
 
 const useConnectToBroker = () => {
     
+    // Feedback message -> change later
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
-    const [loading, setLoading] = useState<boolean>(false)
 
-    /* UPDATE CLIENT CONTEXT */
+    // Loading states
+    const [connectLoading, setConnectLoading] = useState<boolean>(false)
+    const [disconnectLoading, setDisconnectLoading] = useState<boolean>(false)
+
+    // Client context
     const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
     
     useEffect(() => {
@@ -34,10 +38,12 @@ const useConnectToBroker = () => {
 
         try {
 
-            setLoading(true)
-
+            setConnectLoading(true)
+            
+            // Create connection
             const mqttClient:MqttClient = mqtt.connect(connectionString)
 
+            // Listener if conection fails
             mqttClient.stream.on('error', async(err) => {
 
                 if (err.message === 'WebSocket error') { 
@@ -48,24 +54,27 @@ const useConnectToBroker = () => {
 
                 await mqttClient.endAsync()
                 updateClient(null)
-                setLoading(false)
+                setConnectLoading(false)
             })
 
-            // If connection succeeds
+            // Listener if conection succeeds
             mqttClient.stream.on('connect', () => {
                 updateClient(mqttClient)
-                setLoading(false)
+                setConnectLoading(false)
                 changeFeedbackMessage(new FeedbackMessage('Connected.', 'good', 'connection'))
             })  
             
         } catch (error:any) {
-            setLoading(false)
+            setConnectLoading(false)
+
             console.log(error)
+
             if (error.message === 'Missing protocol') {
                 changeFeedbackMessage(new FeedbackMessage('Connection string is missing protocol.', 'bad', 'connection'))
             } else {
                 changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad', 'connection'))
             }
+
         }
     }
 
@@ -78,22 +87,31 @@ const useConnectToBroker = () => {
         }
 
         try {
-            setLoading(true)
+            setDisconnectLoading(true)
+
+            // End connection
             await client.endAsync()
+
             updateClient(null)
-            setLoading(false)
+
+            setDisconnectLoading(false)
+
             changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'bad', 'connection'))
+
         } catch (error) {
-            setLoading(false)
+            setDisconnectLoading(false)
+
             console.log(error)
+
             changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad', 'connection'))
         }
     }
 
-    return {
-        loading, 
+    return { 
         connect,
+        connectLoading,
         disconnect,
+        disconnectLoading,
     }
 }
 

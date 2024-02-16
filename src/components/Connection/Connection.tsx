@@ -6,18 +6,23 @@ import { FormEvent, useContext, useState } from 'react'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 
 // Context
-import Client from '../Client/Client'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType } from '../../@types/mqtt'
 
+// Components
+import Client from '../Client/Client'
+
 const Connection = () => {
 
+    // Context
     const {client} = useContext(ClientContext) as MQTTClientContextType
 
-    const {loading, disconnect, connect} = useConnectToBroker()
+    // Connect hook
+    const {connect, connectLoading, disconnect, disconnectLoading} = useConnectToBroker()
 
+    // Component states
     const [connectionString, setConnectionString] = useState<string>('')
-
+    
     const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
         const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
@@ -62,25 +67,25 @@ const Connection = () => {
                     </ul>
                 </div>
 
-                {loading ? (
-                    <input type="submit" value='Connecting...' disabled/>
-                ) : (
-                    <input type="submit" value='Connect'/>
-                )}  
+                {connectLoading     && <input type='submit' value='Connecting...' disabled/>}
+                {disconnectLoading  && <input type='submit' value='Disconnecting...' disabled/>}
+                {!connectLoading    && !disconnectLoading && <input type='submit' value='Connect'/>}
 
                 </form>
                 
                 {/* DISCONNECT FORM */}
                 <form onSubmit={handleDisconnect}>
-                    <input type="submit" value='Disconnect' />
+                    {connectLoading     && <input type='submit' value='Connecting...' disabled/>}
+                    {disconnectLoading  && <input type='submit' value='Disconnecting...' disabled/>}
+                    {!connectLoading    && !disconnectLoading && <input type='submit' value='Disconnect'/>}
                 </form>
 
             </div>
 
             {/* STATES FROM CONNECTION */}
             <div className={styles.clientcontainer}>
-                {loading && !client && <div className={styles.serverloading}><p>Connecting to server...</p></div>}
-                {loading && client && <div className={styles.serverloading}><p>Disconnecting from server...</p></div>}
+                {connectLoading && !client && <div className={styles.serverloading}><p>Connecting to server...</p></div>}
+                {disconnectLoading && client && <div className={styles.serverloading}><p>Disconnecting from server...</p></div>}
                 {client && <Client/>} 
             </div>
 
