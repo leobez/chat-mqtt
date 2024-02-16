@@ -1,12 +1,17 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import styles from './Connection.module.css'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
 
 const Connection = () => {
 
-    const {loading, connect, disconnect, client} = useConnectToBroker()
+    const {loading, disconnect, client, connect} = useConnectToBroker()
+
     const [connectionString, setConnectionString] = useState<string>('')
+
+    useEffect(() => {
+        console.log('client: ', client)
+    }, [client])
 
     const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()

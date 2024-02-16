@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
@@ -9,6 +9,7 @@ const useConnectToBroker = () => {
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
     const [loading, setLoading] = useState<boolean>(false) // CHANGE THIS TO FALSE
     const [client, setClient] = useState<MqttClient|null>(null)
+
 
     const connect = async(connectionString:string):Promise<void> => {
 

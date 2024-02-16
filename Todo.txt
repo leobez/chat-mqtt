@@ -1,16 +1,18 @@
-- Use react icons
+- Connection is lost if change route
+    - Warn that the connection will be lost
+    - Prevent connection from being lost
+
+- Use context for client state	
 
 - About component
 
-- Connection is lost if change route
-    - Warn that the connection will be lost
-    - Prevent connection from being lost	
+- Use react icons
 
 - Responsivity
-		
-- Test custom scrollbars (topics and chat) on other browsers
 
-- Use context for client state	
+
+
+- Test custom scrollbars (topics and chat) on other browsers
 
 - Test options when connecting to server
 		
