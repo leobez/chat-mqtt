@@ -1,20 +1,13 @@
-- Update client context to hold topics and messages as well
-- Update classes + feedbackMessages context with corret type
-
-
+- Refactor feedbackMessages
 - About component
-
 - Use react icons
-
 - Responsivity
 
 
-- Test custom scrollbars (topics and chat) on other browsers
 
+- Test custom scrollbars (topics and chat) on other browsers
 - Test options when connecting to server
-		
 - Test behaviour with wildcard topics
-		
 - Add QOS, password and security options
 		
 

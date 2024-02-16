@@ -6,12 +6,15 @@ import { MQTTClientContextType } from "../@types/mqtt"
 
 const useSubscribeToTopic = () => {
     
+    // Feedback context -> change later
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
 
+    // Context
     const {client, topics, updateTopics} = useContext(ClientContext) as MQTTClientContextType
 
-    const [loading, setLoading] = useState<boolean>(false)
-    const [unsubLoading, setUnsubLoading] = useState<boolean>(false)
+    // Loading states
+    const [subLoading, setSubLoading]       = useState<boolean>(false)
+    const [unsubLoading, setUnsubLoading]   = useState<boolean>(false)
 
     const subscribe = async(topic:string):Promise<void> => {
 
@@ -27,14 +30,20 @@ const useSubscribeToTopic = () => {
             return;
         }
 
+        if (!client) {
+            changeFeedbackMessage(new FeedbackMessage('Client error.', 'bad'))
+            console.log('Client error')
+            return;
+        }
+
         try {
-            setLoading(true)
-            await client?.subscribeAsync(topic)
-            setLoading(false)
+            setSubLoading(true)
+            await client.subscribeAsync(topic)
+            setSubLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic.`, 'good'))
             updateTopics(topic, 'add')
         } catch (error) {
-            setLoading(false)
+            setSubLoading(false)
             console.log(error)
             changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad'))
         }
@@ -55,9 +64,15 @@ const useSubscribeToTopic = () => {
             return;
         }
 
+        if (!client) {
+            changeFeedbackMessage(new FeedbackMessage('Client error.', 'bad'))
+            console.log('Client error')
+            return;
+        }
+
         try {
             setUnsubLoading(true)
-            await client?.unsubscribeAsync(topic)
+            await client.unsubscribeAsync(topic)
             setUnsubLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
             updateTopics(topic, 'remove')
@@ -70,8 +85,8 @@ const useSubscribeToTopic = () => {
     }
 
     return {
-        loading, 
         subscribe,
+        subLoading,
         unsubscribe,
         unsubLoading,
     }

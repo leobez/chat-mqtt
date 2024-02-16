@@ -10,7 +10,10 @@ const Client = () => {
     // Client context
     const {client, topics} = useContext(ClientContext) as MQTTClientContextType
 
-    const {loading, subscribe, unsubscribe, unsubLoading} = useSubscribeToTopic()
+    // Sub hook
+    const {subscribe, subLoading, unsubscribe, unsubLoading} = useSubscribeToTopic()
+
+    // Component states
     const [topic, setTopic] = useState<string>('')
     const [chosenTopic, setChosenTopic] = useState<string>('')
 
@@ -84,9 +87,9 @@ const Client = () => {
                                     />
                                 </div>
 
-                                {loading        && <input type="submit" value='Subscribing to topic...' disabled/>}
-                                {unsubLoading   && <input type="submit" value='Unsubscribing from topic...' disabled/>}
-                                {!loading && !unsubLoading && <input type="submit" value='Subscribe to topic'/>}
+                                {subLoading && <input type="submit" value='Subscribing to topic...' disabled/>}
+                                {unsubLoading && <input type="submit" value='Unsubscribing from topic...' disabled/>}
+                                {!subLoading && !unsubLoading && <input type="submit" value='Subscribe to topic'/>}
 
                             </form>
 
@@ -119,7 +122,7 @@ const Client = () => {
                             }
 
                             <div className={styles.loadingcontainer}>
-                                {loading && <div><p>Subscribing to topic...</p></div>}
+                                {subLoading && <div><p>Subscribing to topic...</p></div>}
                                 {unsubLoading && <div><p>Unsubscribing from topic...</p></div>}
                             </div>
 
@@ -132,7 +135,7 @@ const Client = () => {
                     </div>
                 </>
             }
-
+            
         </div>
     )
 }
