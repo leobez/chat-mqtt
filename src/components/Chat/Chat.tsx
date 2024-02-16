@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from 'react'
 import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
-import FeedbackMessageContext from '../../context/FeedbackMessageContext'
+import FeedbackMessageContext from '../../context/FeedbackContext'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType, Message } from '../../@types/mqtt'
 

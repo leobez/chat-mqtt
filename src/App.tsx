@@ -7,14 +7,14 @@ import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import { ClientContextProvider } from './context/ClientContext'
-import { FeedbackMessageProvider } from './context/FeedbackMessageContext'
+import { FeedbackContextProvider } from './context/FeedbackContext'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
 
     return (
         <div className="App">
-            <FeedbackMessageProvider>
+            <FeedbackContextProvider>
                 <ClientContextProvider>
 
                     <Feedback/>
@@ -42,7 +42,7 @@ function App() {
                     </footer>
             
                 </ClientContextProvider>
-            </FeedbackMessageProvider>
+            </FeedbackContextProvider>
         </div>
     )
 

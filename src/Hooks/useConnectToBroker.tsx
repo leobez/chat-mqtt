@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react"
 import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
-import FeedbackMessageContext from "../context/FeedbackMessageContext"
-import FeedbackMessage from "../classes/FeedbackMessage"
 import ClientContext from "../context/ClientContext"
 import { MQTTClientContextType } from "../@types/mqtt"
+import FeedbackContext from "../context/FeedbackContext"
+import { FeedbackType, ITFeedback } from "../@types/feedback"
 
 const useConnectToBroker = () => {
     
-    // Feedback message -> change later
-    const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
+    // Feedback message
+    const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
     const [connectLoading, setConnectLoading] = useState<boolean>(false)
@@ -22,17 +22,28 @@ const useConnectToBroker = () => {
         console.log('client: ', client)
     }, [client])
 
+    const createFeedback = (message:string, status:string, source:string|null) => {
+
+        const newFeedback:ITFeedback = {
+            message,
+            status,
+            source
+        }
+
+        console.log(message)
+
+        updateFeedback(newFeedback)
+    }
+
     const connect = async(connectionString:string):Promise<void> => {
 
         if (connectionString.trim() === '') {
-            changeFeedbackMessage(new FeedbackMessage('Connection string empty.', 'bad', 'connection'))
-            console.log('Connection string empty.')
+            createFeedback('Connection string empty.', 'bad', 'connection')
             return;
         }
 
         if (client!==null) {
-            changeFeedbackMessage(new FeedbackMessage('Already connected.', 'bad', 'connection'))
-            console.log('Already connected.')
+            createFeedback('Already connected.', 'bad', 'connection')
             return;
         }
 
@@ -47,9 +58,9 @@ const useConnectToBroker = () => {
             mqttClient.stream.on('error', async(err) => {
 
                 if (err.message === 'WebSocket error') { 
-                    changeFeedbackMessage(new FeedbackMessage('Connection failed.', 'bad', 'connection'))
+                    createFeedback('Connection failed.', 'bad', 'connection')
                 } else {
-                    changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad', 'connection'))
+                    createFeedback('Something went wrong.', 'bad', 'connection')
                 }
 
                 await mqttClient.endAsync()
@@ -61,7 +72,7 @@ const useConnectToBroker = () => {
             mqttClient.stream.on('connect', () => {
                 updateClient(mqttClient)
                 setConnectLoading(false)
-                changeFeedbackMessage(new FeedbackMessage('Connected.', 'good', 'connection'))
+                createFeedback('Connected.', 'good', 'connection')
             })  
             
         } catch (error:any) {
@@ -70,9 +81,9 @@ const useConnectToBroker = () => {
             console.log(error)
 
             if (error.message === 'Missing protocol') {
-                changeFeedbackMessage(new FeedbackMessage('Connection string is missing protocol.', 'bad', 'connection'))
+                createFeedback('Connection string is missing protocol.', 'bad', 'connection')
             } else {
-                changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad', 'connection'))
+                createFeedback('Something went wrong.', 'bad', 'connection')
             }
 
         }
@@ -82,7 +93,7 @@ const useConnectToBroker = () => {
 
         if (!client) {
             console.log('Already disconnected.')
-            changeFeedbackMessage(new FeedbackMessage('Already disconnected.', 'bad', 'connection'))
+            createFeedback('Already disconnected.', 'bad', 'connection')
             return;
         }
 
@@ -93,17 +104,13 @@ const useConnectToBroker = () => {
             await client.endAsync()
 
             updateClient(null)
-
             setDisconnectLoading(false)
-
-            changeFeedbackMessage(new FeedbackMessage('Disconnected.', 'bad', 'connection'))
+            createFeedback('Disconnected.', 'bad', 'connection')
 
         } catch (error) {
             setDisconnectLoading(false)
-
             console.log(error)
-
-            changeFeedbackMessage(new FeedbackMessage('Something went wrong.', 'bad', 'connection'))
+            createFeedback('Something went wrong.', 'bad', 'connection')
         }
     }
 

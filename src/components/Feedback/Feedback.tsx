@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react'
 import styles from './Feedback.module.css'
-import FeedbackMessageContext from '../../context/FeedbackMessageContext'
+import FeedbackMessageContext from '../../context/FeedbackContext'
 
 const Feedback = () => {
 
