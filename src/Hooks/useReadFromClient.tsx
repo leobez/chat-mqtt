@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ClientMessage from "../classes/ClientMessage"
-import { MqttClient } from "mqtt"
+import ClientContext from "../context/ClientContext"
+import { MQTTClientContextType } from "../@types/mqtt"
 
-const useReadFromClient = (client:MqttClient) => {
+const useReadFromClient = () => {
+
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     const [messages, setMessages] = useState<ClientMessage[]>([])
 
     useEffect(() => {
-        client.on('message', (topic:string, content:any) => {
+        client?.on('message', (topic:string, content:any) => {
             const message = new ClientMessage(topic, content.toString())
             console.log('New message: ', message)
             setMessages(prev => [...prev, message])

@@ -1,23 +1,22 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import styles from './Client.module.css'
 import useSubscribeToTopic from '../../hooks/useSubscribeToTopic'
 import Chat from '../Chat/Chat'
-import { MqttClient } from 'mqtt'
+import ClientContext from '../../context/ClientContext'
+import { MQTTClientContextType } from '../../@types/mqtt'
 
-type Prop = {
-    client:MqttClient
-}
+const Client = () => {
 
-const Client = ({client}:Prop) => {
+    // Client context
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     const {loading, subscribe, unsubscribe, subscribedTopics, unsubLoading} = useSubscribeToTopic()
-
     const [topic, setTopic] = useState<string>('')
     const [chosenTopic, setChosenTopic] = useState<string>('')
 
     const handleSubscribe = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
-        await subscribe(topic, client)
+        await subscribe(topic)
     }
 
     const handleUnsubscribe = async(e:any):Promise<void> => {
@@ -29,7 +28,7 @@ const Client = ({client}:Prop) => {
             setChosenTopic('')
         }
 
-        await unsubscribe(selectedTopic, client)
+        await unsubscribe(selectedTopic)
     }
 
     const handleSelect = (e:any):void => {
@@ -129,7 +128,7 @@ const Client = ({client}:Prop) => {
                     </div>
 
                     <div className={styles.chatcontainer}>
-                        <Chat client={client} chosenTopic={chosenTopic}/>
+                        <Chat chosenTopic={chosenTopic}/>
                     </div>
                 </>
             }

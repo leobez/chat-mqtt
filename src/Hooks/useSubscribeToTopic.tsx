@@ -2,17 +2,21 @@ import { useContext, useState } from "react"
 import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
 import FeedbackMessage from "../classes/FeedbackMessage"
+import ClientContext from "../context/ClientContext"
+import { MQTTClientContextType } from "../@types/mqtt"
 
 const useSubscribeToTopic = () => {
     
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
+
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     const [loading, setLoading] = useState<boolean>(false)
     const [unsubLoading, setUnsubLoading] = useState<boolean>(false)
 
     const [subscribedTopics, setSubscribedTopics] = useState<string[]>([])
 
-    const subscribe = async(topic:string, client:MqttClient):Promise<void> => {
+    const subscribe = async(topic:string):Promise<void> => {
 
         if (subscribedTopics.includes(topic)) {
             changeFeedbackMessage(new FeedbackMessage(`Already subscribed to topic.`, 'bad'))
@@ -28,7 +32,7 @@ const useSubscribeToTopic = () => {
 
         try {
             setLoading(true)
-            await client.subscribeAsync(topic)
+            await client?.subscribeAsync(topic)
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Subscribed to topic.`, 'good'))
             setSubscribedTopics((prev) => [...prev, topic])
@@ -40,7 +44,7 @@ const useSubscribeToTopic = () => {
 
     }
 
-    const unsubscribe = async(topic:string, client:MqttClient):Promise<void> => {
+    const unsubscribe = async(topic:string):Promise<void> => {
 
         if (!subscribedTopics.includes(topic)) {
             changeFeedbackMessage(new FeedbackMessage('Topic not subscribed.', 'bad'))
@@ -56,7 +60,7 @@ const useSubscribeToTopic = () => {
 
         try {
             setUnsubLoading(true)
-            await client.unsubscribeAsync(topic)
+            await client?.unsubscribeAsync(topic)
             setUnsubLoading(false)
             changeFeedbackMessage(new FeedbackMessage(`Unsubscribed from topic.`, 'bad'))
             setSubscribedTopics((prev) => prev.filter(prevTopic => prevTopic !== topic))

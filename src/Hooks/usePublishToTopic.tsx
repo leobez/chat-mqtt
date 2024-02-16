@@ -1,14 +1,17 @@
 import { useContext, useState } from "react"
-import { MqttClient } from "mqtt"
 import FeedbackMessageContext from "../context/FeedbackMessageContext"
 import FeedbackMessage from "../classes/FeedbackMessage"
+import ClientContext from "../context/ClientContext"
+import { MQTTClientContextType } from "../@types/mqtt"
 
 const usePublishToTopic = () => {
+
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     const {changeFeedbackMessage} = useContext(FeedbackMessageContext)
     const [loading, setLoading] = useState<boolean>(false)
 
-    const publish = async(client:MqttClient, topic:string, message:string):Promise<void> => {
+    const publish = async(topic:string, message:string):Promise<void> => {
 
         if (topic.trim() === '') {
             changeFeedbackMessage(new FeedbackMessage('Choose a topic.', 'bad'))
@@ -24,7 +27,7 @@ const usePublishToTopic = () => {
 
         try {
             setLoading(true)
-            await client.publishAsync(topic, message)
+            await client?.publishAsync(topic, message)
             console.log('Message published.')
             setLoading(false)
             changeFeedbackMessage(new FeedbackMessage('Message published.', 'good'))

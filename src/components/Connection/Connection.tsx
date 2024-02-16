@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import styles from './Connection.module.css'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
 import Client from '../Client/Client'
@@ -8,10 +8,6 @@ import { MQTTClientContextType } from '../../@types/mqtt'
 const Connection = () => {
 
     const {client} = useContext(ClientContext) as MQTTClientContextType
-
-    useEffect(() => {
-        console.log('client: ', client)
-    }, [client])
 
     const {loading, disconnect, connect} = useConnectToBroker()
 
@@ -80,7 +76,7 @@ const Connection = () => {
             <div className={styles.clientcontainer}>
                 {loading && !client && <div className={styles.serverloading}><p>Connecting to server...</p></div>}
                 {loading && client && <div className={styles.serverloading}><p>Disconnecting from server...</p></div>}
-                {client && <Client client={client}></Client>} 
+                {client && <Client/>} 
             </div>
 
         </div>

@@ -3,15 +3,18 @@ import usePublishToTopic from '../../hooks/usePublishToTopic'
 import styles from './Chat.module.css'
 import useReadFromClient from '../../hooks/useReadFromClient'
 import ClientMessage from '../../classes/ClientMessage'
-import { MqttClient } from 'mqtt'
 import FeedbackMessageContext from '../../context/FeedbackMessageContext'
+import ClientContext from '../../context/ClientContext'
+import { MQTTClientContextType } from '../../@types/mqtt'
 
 type Props = {
-    client:MqttClient,
     chosenTopic:string
 }
 
-const Chat = ({client, chosenTopic}: Props) => {
+const Chat = ({chosenTopic}: Props) => {
+
+    // Client context
+    const {client} = useContext(ClientContext) as MQTTClientContextType
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const messagesRef:any = useRef()
@@ -41,7 +44,7 @@ const Chat = ({client, chosenTopic}: Props) => {
     }, [chosenTopic])
 
     const {loading, publish} = usePublishToTopic()
-    const {messages} = useReadFromClient(client)
+    const {messages} = useReadFromClient()
 
     // Scroll message into view
     useEffect(() => {
@@ -53,7 +56,7 @@ const Chat = ({client, chosenTopic}: Props) => {
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
-        await publish(client, chosenTopic, chatMessage)
+        await publish(chosenTopic, chatMessage)
         setChatMessage('')
     }
 

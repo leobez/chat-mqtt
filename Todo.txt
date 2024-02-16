@@ -1,8 +1,4 @@
-- Connection is lost if change route
-    - Warn that the connection will be lost
-    - Prevent connection from being lost
-
-- Use context for client state	
+- Create context for topis and messages as well
 
 - About component
 
