@@ -12,7 +12,7 @@ type Props = {
 const Chat = ({chosenTopic}: Props) => {
 
     // Client context
-    const {client, messages} = useContext(ClientContext) as MQTTClientContextType
+    const {messages} = useContext(ClientContext) as MQTTClientContextType
 
     const {feedbackMessage} = useContext(FeedbackMessageContext)
     const messagesRef:any = useRef()
