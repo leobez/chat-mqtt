@@ -8,7 +8,7 @@ Link para acessar o site (...)
 
 <hr>
 
-Não suporta transporte seguro de mensagem (TLS)
+Não suporta transporte seguro de mensagens (TLS)
 
 Não suporta configurações adicionais como definir o id do usuário e definir QOS
 
@@ -27,3 +27,24 @@ Métodos do módulo MQTT.js usados.
 `publish`: Publica a mensagem no tópico;
 
 `on`: Escuta por 'eventos' no cliente, como o `message`, que é ativado quando uma mensagem é enviada a um dos tópicos no qual o cliente está inscrito;
+
+<hr>
+
+TODO LIST:
+
+- Implement react icons
+ 
+- Test custom scrollbars (topics and chat components) on browsers other than firefox
+  
+- Test options when connecting to server
+ 
+- Test behaviour with wildcard topics
+ 
+- Add QOS, client id config options
+  
+- Add secure connection over TLS
+
+
+
+
+
