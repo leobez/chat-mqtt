@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <div className={styles.footer}>
             <h1>
-                CHAT MQTT - Leonardo de Souza Bezerra
+                CHAT MQTT
             </h1>
         </div>
     )

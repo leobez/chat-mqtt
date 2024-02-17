@@ -25,9 +25,9 @@ const Connection = () => {
     
     const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
-        const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
-        //connect(connectionString)
-        connect(tempConectionStringForTesting)
+        //const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
+        connect(connectionString)
+        //connect(tempConectionStringForTesting)
     }
 
     const handleDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {

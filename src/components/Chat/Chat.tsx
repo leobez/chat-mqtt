@@ -42,7 +42,7 @@ const Chat = ({chosenTopic}: Props) => {
                     <p key={index}>
                         {msg.topic === '<system>' ? (
                             <>
-                                <span> {msg.message} </span>
+                                <span className={styles.system}> {msg.message} </span>
                             </>
                         ) : (
                             <>
