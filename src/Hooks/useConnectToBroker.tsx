@@ -9,7 +9,7 @@ import { FeedbackType, ITFeedback } from "../@types/feedback"
 const useConnectToBroker = () => {
 
     // Context
-    const {client, updateClient} = useContext(ClientContext) as MQTTClientContextType
+    const {client, updateClient, updateTopics, resetMessages} = useContext(ClientContext) as MQTTClientContextType
     const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
@@ -48,9 +48,10 @@ const useConnectToBroker = () => {
         try {
 
             setConnectLoading(true)
-            
+
+
             // Create connection
-            const mqttClient:MqttClient = mqtt.connect(connectionString)
+            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'ssl'})
 
             // Listener if conection fails
             mqttClient.stream.on('error', async(err) => {
@@ -100,8 +101,10 @@ const useConnectToBroker = () => {
 
             // End connection
             await client.endAsync()
-
+            
             updateClient(null)
+            updateTopics('', 'reset')
+            resetMessages()
             setDisconnectLoading(false)
             createFeedback('Disconnected.', 'bad', 'connection')
 

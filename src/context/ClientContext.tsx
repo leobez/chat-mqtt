@@ -36,6 +36,9 @@ export const ClientContextProvider = ({children}:Props) => {
         if (action === 'remove') {
             setTopics((prev) => prev.filter((t) => t !== topic))
         }
+        if (action === 'reset') {
+            setTopics([])
+        }
     }
 
     const addSystemMessage = (message:string):void => {
@@ -48,12 +51,16 @@ export const ClientContextProvider = ({children}:Props) => {
         setMessages((prev) => [...prev, newMessage])
     }
 
+    const resetMessages = ():void => {
+        setMessages([])
+    }
+
     return (
 
         <ClientContext.Provider value={{
             client, updateClient,
             topics, updateTopics,
-            messages, addSystemMessage
+            messages, addSystemMessage, resetMessages
         }}>
 
             {children}

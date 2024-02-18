@@ -33,6 +33,10 @@ Métodos do módulo MQTT.js usados.
 TODO LIST:
 
 - Implement react icons
+
+- Implement reconnect / close when disconnect abruptly
+
+- Join message functions on Client context into one function
  
 - Test custom scrollbars (topics and chat components) on browsers other than firefox
   

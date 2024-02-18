@@ -62,8 +62,8 @@ const Connection = () => {
                 <div className={styles.examples}>
                     <h2>Example of broker URLs:</h2>
                     <ul>
-                        <li>ws://broker.hivemq.com:8000/mqtt</li>
-                        <li>ws://test.mosquitto.org:8080</li>
+                        <li>ws://broker.hivemq.com:8884/mqtt</li>
+                        <li>ws://test.mosquitto.org:8081</li>
                     </ul>
                 </div>
 
