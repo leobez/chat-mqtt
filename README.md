@@ -32,23 +32,14 @@ Métodos do módulo MQTT.js usados.
 
 TODO LIST:
 
+- Implement reconnect / close when disconnect abruptly (easy)
+
+- Join message functions on Client context into one function (easy)
+
 - Implement react icons
 
-- Implement reconnect / close when disconnect abruptly
-
-- Join message functions on Client context into one function
- 
 - Test custom scrollbars (topics and chat components) on browsers other than firefox
-  
-- Test options when connecting to server
  
 - Test behaviour with wildcard topics
  
-- Add QOS, client id config options
-  
-- Add secure connection over TLS
-
-
-
-
-
+- Add [QOS, client_id, authentication] as optional config options
