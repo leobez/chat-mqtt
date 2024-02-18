@@ -1,9 +1,0 @@
-- Responsivity
-
-- Use react icons
-- Test custom scrollbars (topics and chat) on other browsers
-- Test options when connecting to server
-- Test behaviour with wildcard topics
-- Add QOS, password and security options
-		
-
