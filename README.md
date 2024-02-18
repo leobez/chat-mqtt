@@ -4,7 +4,7 @@ Site que disponibiliza uma interface para enviar e receber mensagens através de
 
 Feito com: React.js, TypeScript, [MQTT.js](https://github.com/mqttjs)
 
-Link para acessar o site (...)
+Link para acessar o site: https://leobez.github.io/chat-mqtt/
 
 <hr>
 
