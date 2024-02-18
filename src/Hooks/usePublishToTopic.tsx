@@ -7,7 +7,7 @@ import { FeedbackType, ITFeedback } from "../@types/feedback"
 const usePublishToTopic = () => {
 
     // Context
-    const {client, addSystemMessage} = useContext(ClientContext) as MQTTClientContextType
+    const {client, updateMessage} = useContext(ClientContext) as MQTTClientContextType
     const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Hook states
@@ -21,8 +21,6 @@ const usePublishToTopic = () => {
             source
         }
 
-        console.log(message)
-
         updateFeedback(newFeedback)
     }
 
@@ -30,19 +28,19 @@ const usePublishToTopic = () => {
 
         if (topic.trim() === '') {
             createFeedback('Choose a topic.', 'bad')
-            addSystemMessage('Choose a topic.')
+            updateMessage('Choose a topic.', 'addSystem')
             return;
         }
 
         if (message.trim() === '') {
             createFeedback('Invalid message.', 'bad')
-            addSystemMessage('Invalid message.')
+            updateMessage('Invalid message.', 'addSystem')
             return;
         }
 
         if (!client) {
             createFeedback('Client error.', 'bad')
-            addSystemMessage('Client error.')
+            updateMessage('Client error.', 'addSystem')
             return;
         }
 

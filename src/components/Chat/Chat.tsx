@@ -20,7 +20,6 @@ const Chat = ({chosenTopic}: Props) => {
 
     // Scroll message into view
     useEffect(() => {
-        console.log('messages: ', messages)
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }, [messages]);
 
@@ -40,7 +39,7 @@ const Chat = ({chosenTopic}: Props) => {
             <div className={`${styles['messages']} ${styles['scrollable_container']}`} ref={messagesRef}>
                 {messages && messages.map((msg:Message, index:number) => (
                     <p key={index}>
-                        {msg.topic === '<system>' ? (
+                        {msg.topic === '' ? (
                             <>
                                 <span className={styles.system}> {msg.message} </span>
                             </>

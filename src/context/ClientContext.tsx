@@ -41,18 +41,19 @@ export const ClientContextProvider = ({children}:Props) => {
         }
     }
 
-    const addSystemMessage = (message:string):void => {
+    const updateMessage = (message:string, action:string):void => {
 
-        const newMessage:Message = {
-            message: message,
-            topic: '<system>'
+        if (action === 'addSystem') {
+            const newMessage:Message = {
+                message: message,
+                topic: ''
+            }
+            setMessages((prev) => [...prev, newMessage])
         }
 
-        setMessages((prev) => [...prev, newMessage])
-    }
-
-    const resetMessages = ():void => {
-        setMessages([])
+        if (action === 'reset') {
+            setMessages([])
+        }
     }
 
     return (
@@ -60,7 +61,7 @@ export const ClientContextProvider = ({children}:Props) => {
         <ClientContext.Provider value={{
             client, updateClient,
             topics, updateTopics,
-            messages, addSystemMessage, resetMessages
+            messages, updateMessage,
         }}>
 
             {children}

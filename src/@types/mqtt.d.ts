@@ -14,7 +14,6 @@ export type MQTTClientContextType = {
     updateTopics: (topic:string, action:string) => void;
 
     messages: Message[];
-    addSystemMessage: (message:string) => void;
-    resetMessages: () => void
+    updateMessage: (message:string, action: string) => void;
 
 }

@@ -9,16 +9,12 @@ import { FeedbackType, ITFeedback } from "../@types/feedback"
 const useConnectToBroker = () => {
 
     // Context
-    const {client, updateClient, updateTopics, resetMessages} = useContext(ClientContext) as MQTTClientContextType
+    const {client, updateClient, updateTopics, updateMessage} = useContext(ClientContext) as MQTTClientContextType
     const {updateFeedback} = useContext(FeedbackContext) as FeedbackType
 
     // Loading states
     const [connectLoading, setConnectLoading] = useState<boolean>(false)
     const [disconnectLoading, setDisconnectLoading] = useState<boolean>(false)
-    
-    useEffect(() => {
-        console.log('client: ', client)
-    }, [client])
 
     const createFeedback = (message:string, status:string, source:string|null=null) => {
 
@@ -51,7 +47,7 @@ const useConnectToBroker = () => {
 
 
             // Create connection
-            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'wss'})
+            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'ssl'})
 
             // Listener if conection fails
             mqttClient.stream.on('error', async(err) => {
@@ -91,7 +87,6 @@ const useConnectToBroker = () => {
     const disconnect = async():Promise<void> => {
 
         if (!client) {
-            console.log('Already disconnected.')
             createFeedback('Already disconnected.', 'bad', 'connection')
             return;
         }
@@ -104,7 +99,7 @@ const useConnectToBroker = () => {
             
             updateClient(null)
             updateTopics('', 'reset')
-            resetMessages()
+            updateMessage('', 'reset')
             setDisconnectLoading(false)
             createFeedback('Disconnected.', 'bad', 'connection')
 
