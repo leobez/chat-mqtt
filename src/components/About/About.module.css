@@ -47,3 +47,12 @@
     font-weight: bold;
     content: '> ';
 }
+
+@media  (max-width: 1050px) {
+    .about {
+        flex-direction: column;
+    }
+    .imagecontainer > img {
+        width: 100%;
+    }
+}

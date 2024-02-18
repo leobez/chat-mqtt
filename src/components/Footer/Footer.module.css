@@ -1,5 +1,6 @@
 .footer {
     height: 100%;
+    min-height: 100px;
     display: grid;
     place-items: center;
     background-color: var(--color-03);

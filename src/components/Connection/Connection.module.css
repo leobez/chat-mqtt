@@ -85,3 +85,13 @@
     color: white;
     font-weight: bold;
 }
+
+@media (max-width: 1050px) {
+    .connectioncontainer {
+        flex-direction: column;
+    }
+    .connectioncontainer > div:nth-child(1){
+        width: 100%;
+    }
+}
+  

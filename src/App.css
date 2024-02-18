@@ -23,3 +23,10 @@
     flex: 0 1 100px;
     border: 1px solid black;
 }
+
+@media (max-width: 1200px) {
+    .App main {
+        width: 99%;
+    }
+}
+  

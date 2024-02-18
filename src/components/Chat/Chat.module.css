@@ -8,6 +8,7 @@
 .messages {
     flex-basis: 85%;
     max-height: 400px;
+    min-height: 300px;
     background-color: white;
     overflow-y: scroll;
     display: flex;
@@ -29,14 +30,13 @@
 
 /* SEND MESSAGE FORM */
 .chat > form {
-    padding: 2px 0px;
     display: flex;
+    min-height: 50px;
     flex-direction: column;
     gap: 2px;
     flex-basis: 15%;
     background-color: white;
     color: black;
-    padding: 5px;
 }
 .send_message {
     width: 100%;
