@@ -26,9 +26,9 @@ Métodos do módulo MQTT.js usados.
 
 TODO LIST:
 
-- Implement reconnect / close when disconnect abruptly (easy)
+- Implement reconnect / close when disconnect abruptly 
 
-- Join message functions on Client context into one function (easy)
+- Join message functions on Client context into one function 
 
 - Implement react icons
 
