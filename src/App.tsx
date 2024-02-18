@@ -24,14 +24,14 @@ function App() {
                     </header>
 
                     <main>
-                        <BrowserRouter>
+                        <BrowserRouter basename='/chat-mqtt'>
 
                             <Navbar/>
 
                             <Routes>
+                                <Route path='*' element={<Page404/>}></Route>
                                 <Route path='/' element={<Connection/>}></Route>
                                 <Route path='/about' element={<About/>}></Route>
-                                <Route path='*' element={<Page404/>}></Route>
                             </Routes>
 
                         </BrowserRouter>

@@ -5,7 +5,7 @@ const Header = () => {
         <div className={styles.header}>
 
             <h1>
-                <a href="/">CHAT MQTT</a>
+                <a href="/chat-mqtt">CHAT MQTT</a>
             </h1>
             
         </div>
