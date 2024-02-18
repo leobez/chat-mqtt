@@ -51,7 +51,7 @@ const useConnectToBroker = () => {
 
 
             // Create connection
-            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'ssl'})
+            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'wss'})
 
             // Listener if conection fails
             mqttClient.stream.on('error', async(err) => {

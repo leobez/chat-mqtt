@@ -8,12 +8,6 @@ Link para acessar o site (...)
 
 <hr>
 
-Não suporta transporte seguro de mensagens (TLS)
-
-Não suporta configurações adicionais como definir o id do usuário e definir QOS
-
-<hr>
-
 Métodos do módulo MQTT.js usados.
 
 `connect`: Cria uma conexão entre o cliente e o broker;
@@ -42,4 +36,4 @@ TODO LIST:
  
 - Test behaviour with wildcard topics
  
-- Add [QOS, client_id, authentication] as optional config options
+- Add [QOS, client_id, authentication] as optional configuration
