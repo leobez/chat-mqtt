@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import mqtt from 'mqtt'
 import { MqttClient } from "mqtt"
 import ClientContext from "../context/ClientContext"
@@ -47,7 +47,7 @@ const useConnectToBroker = () => {
 
 
             // Create connection
-            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'ssl'})
+            const mqttClient:MqttClient = mqtt.connect(connectionString, {protocol: 'wss'})
 
             // Listener if conection fails
             mqttClient.stream.on('error', async(err) => {
@@ -70,6 +70,13 @@ const useConnectToBroker = () => {
                 createFeedback('Connected.', 'good', 'connection')
             })  
             
+            // Listener if connection ends abruptly
+            mqttClient.stream.on('end', () => {
+                updateClient(null)
+                updateTopics('', 'reset')
+                updateMessage('', 'reset')
+            })
+
         } catch (error:any) {
             setConnectLoading(false)
 
