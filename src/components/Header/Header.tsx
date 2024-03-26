@@ -1,11 +1,10 @@
+import { Link } from "react-router-dom"
 
 const Header = () => {
     return (
-        <div className="">
-            <h1>
-                <a href="/chat-mqtt">CHAT MQTT</a>
-            </h1>
-        </div>
+        <>
+            <Link to="/">CHAT MQTT</Link>
+        </>
     )
 }
 

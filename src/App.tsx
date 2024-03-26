@@ -13,17 +13,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 function App() {
 
     return (
-        <div className='flex flex-col gap-[2px] m-[2px]'>
+        <div className='flex flex-col gap-[2px]'>
             <FeedbackContextProvider>
                 <ClientContextProvider>
 
-                    <header className='h-20 border border-black'>
-                        <Header/>
-                    </header>
-
                     <BrowserRouter basename='/chat-mqtt'>
 
-                        <div className='border border-black'>
+                        <header className='h-20 grid place-items-center'>
+                            <Header/>
+                        </header>
+
+                        <div className='sticky top-[2px] z-[1] bg-white'>
                             <Navbar/>
                         </div>
 
@@ -34,10 +34,10 @@ function App() {
                                 <Route path='/about' element={<About/>}></Route>
                             </Routes>
                         </main>
-                        
+
                     </BrowserRouter>
                     
-                    <footer className='h-20 border border-black'>
+                    <footer className='h-20 border border-black grid place-items-center'>
                         <Footer/>
                     </footer>
             

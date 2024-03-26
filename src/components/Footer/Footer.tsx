@@ -1,12 +1,10 @@
-
+import { Link } from "react-router-dom"
 
 const Footer = () => {
     return (
-        <div >
-            <h1>
-                CHAT MQTT
-            </h1>
-        </div>
+        <>
+            <h1>CHAT MQTT</h1>
+        </>
     )
 }
 

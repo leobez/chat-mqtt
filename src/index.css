@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .menu-icon {
+        @apply flex items-center justify-center hover:bg-green-600 transition-all duration-200 cursor-pointer p-2 flex-grow hover:text-white w-full h-full
+    }
+    .isPending {
+        @apply w-full h-full
+    }
+}

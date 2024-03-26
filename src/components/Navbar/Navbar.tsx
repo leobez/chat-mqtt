@@ -1,33 +1,18 @@
-import { NavLink } from 'react-router-dom'
-import styles from './Navbar.module.css'
-
-// STYLES ARE USED DYNAMICALLY
+import CNavLink from './CNavLink'
 
 const Navbar = () => {
     return (
         <nav>
-            <ul>
-                <li>
-                    <NavLink 
-                        to='/' 
-                        className={({isActive, isPending}) => 
-                            isPending ? styles.isPending : isActive ? styles.isActive : ""
-                        }
-                    >
-                    Application
-                    </NavLink>
+            <ul className='flex justify-center gap-[2px]'>
+
+                <li className='menu-icon'>
+                    <CNavLink path='/' text='Application'/>
                 </li>
 
-                <li>
-                <NavLink 
-                        to='/about' 
-                        className={({isActive, isPending}) => 
-                            isPending ? styles.isPending : isActive ? styles.isActive : ""
-                        }
-                    >
-                    About
-                    </NavLink>
+                <li className='menu-icon'>
+                    <CNavLink path='/about' text='About'/>
                 </li>
+
             </ul>
         </nav>
     )
