@@ -13,31 +13,31 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 function App() {
 
     return (
-        <div className="App">
+        <div className='flex flex-col gap-[2px] m-[2px]'>
             <FeedbackContextProvider>
                 <ClientContextProvider>
 
-                    <Feedback/>
-
-                    <header>
+                    <header className='h-20 border border-black'>
                         <Header/>
                     </header>
 
-                    <main>
-                        <BrowserRouter basename='/chat-mqtt'>
+                    <BrowserRouter basename='/chat-mqtt'>
 
+                        <div className='border border-black'>
                             <Navbar/>
+                        </div>
 
+                        <main className='border border-black'>
                             <Routes>
                                 <Route path='*' element={<Page404/>}></Route>
                                 <Route path='/' element={<Connection/>}></Route>
                                 <Route path='/about' element={<About/>}></Route>
                             </Routes>
-
-                        </BrowserRouter>
-                    </main>
-
-                    <footer>
+                        </main>
+                        
+                    </BrowserRouter>
+                    
+                    <footer className='h-20 border border-black'>
                         <Footer/>
                     </footer>
             

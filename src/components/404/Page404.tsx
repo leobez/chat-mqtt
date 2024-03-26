@@ -1,8 +1,6 @@
-import styles from './Page404.module.css'
-
 const Page404 = () => {
     return (
-      <div className={styles.page404}>
+      <div>
         <h1>Not found.</h1>
       </div>
     )

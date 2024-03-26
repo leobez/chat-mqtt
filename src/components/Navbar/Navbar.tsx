@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.css'
 
+// STYLES ARE USED DYNAMICALLY
+
 const Navbar = () => {
     return (
-        <nav className={styles.navbar}>
+        <nav>
             <ul>
                 <li>
                     <NavLink 

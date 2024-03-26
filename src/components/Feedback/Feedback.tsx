@@ -3,6 +3,8 @@ import styles from './Feedback.module.css'
 import { FeedbackContext } from '../../context/FeedbackContext'
 import { FeedbackType } from '../../@types/feedback'
 
+// STYLES ARE USED DYNAMICALLY
+
 const Feedback = () => {
 
     const {feedback} = useContext(FeedbackContext) as FeedbackType

@@ -1,6 +1,3 @@
-// Style
-import styles from './Connection.module.css'
-
 // Hooks
 import { FormEvent, useContext, useState } from 'react'
 import useConnectToBroker from '../../hooks/useConnectToBroker'
@@ -36,12 +33,12 @@ const Connection = () => {
     }
 
     return (
-        <div className={styles.connectioncontainer}>
+        <div>
 
-            <div className={styles.connection}>
+            <div>
 
                 {/* CONNECT FORM */}
-                <form onSubmit={handleConnect} className={styles.form}>
+                <form onSubmit={handleConnect}>
 
                 <div>
                     <h1>
@@ -59,7 +56,7 @@ const Connection = () => {
                     />
                 </div>
 
-                <div className={styles.examples}>
+                <div>
                     <h2>Example of broker URLs:</h2>
                     <ul>
                         <li>ws://broker.hivemq.com:8884/mqtt</li>
@@ -83,9 +80,9 @@ const Connection = () => {
             </div>
 
             {/* STATES FROM CONNECTION */}
-            <div className={styles.clientcontainer}>
-                {connectLoading && !client && <div className={styles.serverloading}><p>Connecting to server...</p></div>}
-                {disconnectLoading && client && <div className={styles.serverloading}><p>Disconnecting from server...</p></div>}
+            <div>
+                {connectLoading && !client && <div><p>Connecting to server...</p></div>}
+                {disconnectLoading && client && <div><p>Disconnecting from server...</p></div>}
                 {client && <Client/>} 
             </div>
 

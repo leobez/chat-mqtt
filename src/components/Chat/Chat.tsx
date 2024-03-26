@@ -1,6 +1,5 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from 'react'
 import usePublishToTopic from '../../hooks/usePublishToTopic'
-import styles from './Chat.module.css'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType, Message } from '../../@types/mqtt'
 
@@ -33,15 +32,15 @@ const Chat = ({chosenTopic}: Props) => {
 
     return (
 
-        <div className={styles.chat}>
+        <div>
 
             {/* MESSAGES FROM TOPICS */}
-            <div className={`${styles['messages']} ${styles['scrollable_container']}`} ref={messagesRef}>
+            <div ref={messagesRef}>
                 {messages && messages.map((msg:Message, index:number) => (
                     <p key={index}>
                         {msg.topic === '' ? (
                             <>
-                                <span className={styles.system}> {msg.message} </span>
+                                <span> {msg.message} </span>
                             </>
                         ) : (
                             <>
@@ -53,9 +52,9 @@ const Chat = ({chosenTopic}: Props) => {
             </div>
             
             {/* FORM TO SUBMIT A MESSAGE */}
-            <form onSubmit={handleSubmit} className={styles.sendmessage}>
+            <form onSubmit={handleSubmit}>
 
-                <div className={styles.send_message}>
+                <div>
 
                     <input 
                         type="text" 

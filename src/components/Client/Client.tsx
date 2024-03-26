@@ -5,6 +5,8 @@ import Chat from '../Chat/Chat'
 import ClientContext from '../../context/ClientContext'
 import { MQTTClientContextType } from '../../@types/mqtt'
 
+// STYLES ARES USED DYNAMICALLY
+
 const Client = () => {
 
     // Client context
