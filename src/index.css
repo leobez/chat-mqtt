@@ -4,10 +4,21 @@
 
 
 @layer components {
+
     .menu-icon {
-        @apply flex items-center justify-center hover:bg-green-600 transition-all duration-200 cursor-pointer p-2 flex-grow hover:text-white w-full h-full
+        @apply grid place-items-center hover:bg-slate-800 transition-all duration-200 cursor-pointer p-2 flex-grow hover:text-white w-full h-full border-2 border-black 
     }
+
     .isPending {
         @apply w-full h-full
     }
+
+    .form-button {
+        @apply grid place-items-center border-2 border-black w-full h-12 cursor-pointer hover:bg-slate-800 hover:text-white transition-all duration-200 hover:-translate-y-1 hover:shadow-xl
+    }
+
+    .item-list {
+        @apply text-base p-2 border-2 border-white transition-all duration-200 cursor-pointer hover:bg-slate-900 hover:text-slate-100 hover:translate-x-1
+    }
 }
+

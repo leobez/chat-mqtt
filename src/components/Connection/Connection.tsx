@@ -8,6 +8,7 @@ import { MQTTClientContextType } from '../../@types/mqtt'
 
 // Components
 import Client from '../Client/Client'
+import FormButton from './FormButton'
 
 const Connection = () => {
 
@@ -22,59 +23,79 @@ const Connection = () => {
     
     const handleConnect = (e:FormEvent<HTMLFormElement>):void => {
         e.preventDefault()
-        //const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
-        connect(connectionString)
-        //connect(tempConectionStringForTesting)
+        const tempConectionStringForTesting = 'ws://broker.hivemq.com:8000/mqtt'
+        //connect(connectionString)
+        connect(tempConectionStringForTesting)
     }
 
-    const handleDisconnect = async(e:FormEvent<HTMLFormElement>):Promise<void> => {
-        e.preventDefault()
+    const handleDisconnect = async():Promise<void> => {
         await disconnect()
     }
 
-    return (
-        <div>
+    const fillConnect = (e:any):void => {
+        setConnectionString(e.target.innerText)
+    }
 
-            <div>
+    return (
+        <div className='grid-cols-2'>
+            <div className='grid px-1 gap-1'>
 
                 {/* CONNECT FORM */}
-                <form onSubmit={handleConnect}>
+                <form onSubmit={handleConnect} className='grid border-x-2 border-slate-900'>
 
-                <div>
-                    <h1>
-                        Connect to an MQTT broker:
-                    </h1>
-                </div>
+                    <div className='text-xl py-4 px-2 bg-slate-200 text-slate-900 text-center'>
+                        <p>
+                            Connect to an MQTT broker
+                        </p>
+                    </div>
 
-                <div>
-                    <label htmlFor="conString">Enter the broker URL:</label>
-                    <input 
-                    type="text" 
-                    name='conString'
-                    onChange={(e) => setConnectionString(e.target.value)}
-                    value={connectionString}
-                    />
-                </div>
+                    <div className='grid grid-rows-2 py-4 px-2 bg-slate-500 border-y-2 border-slate-900 text-slate-100'>
+                        <label 
+                        htmlFor="conString" 
+                        className='text-lg'>
+                            Enter the broker URL:
+                        </label>
 
-                <div>
-                    <h2>Example of broker URLs:</h2>
-                    <ul>
-                        <li>ws://broker.hivemq.com:8884/mqtt</li>
-                        <li>ws://test.mosquitto.org:8081</li>
-                    </ul>
-                </div>
+                        <input 
+                        type="text" 
+                        name='conString'
+                        onChange={(e) => setConnectionString(e.target.value)}
+                        value={connectionString}
+                        className='border-2 border-black text-lg p-1 text-black'
+                        />
+                        
+                    </div>
 
-                {connectLoading     && <input type='submit' value='Connecting...' disabled/>}
-                {disconnectLoading  && <input type='submit' value='Disconnecting...' disabled/>}
-                {!connectLoading    && !disconnectLoading && <input type='submit' value='Connect'/>}
+                    <div className='py-4 px-2 bg-slate-200'>
+                        <p className='text-lg text-slate-900'>Example of broker URLs:</p>
+                        <ul className='grid gap-1'>
+                            <li className='item-list text-slate-900' onClick={fillConnect}>
+                                ws://broker.hivemq.com:8884/mqtt
+                            </li>
+                            <li className='item-list text-slate-900' onClick={fillConnect}>
+                                ws://test.mosquitto.org:8081
+                            </li>
+                        </ul>
+                    </div>
 
-                </form>
-                
-                {/* DISCONNECT FORM */}
-                <form onSubmit={handleDisconnect}>
-                    {connectLoading     && <input type='submit' value='Connecting...' disabled/>}
-                    {disconnectLoading  && <input type='submit' value='Disconnecting...' disabled/>}
-                    {!connectLoading    && !disconnectLoading && <input type='submit' value='Disconnect'/>}
+                    <div className='grid grid-cols-2'>
+                        
+                        {/* CONNECT BUTTONS */}
+                        <div>
+                            {connectLoading && <FormButton value='C'></FormButton>}
+                            {disconnectLoading && <FormButton value='D'></FormButton>}
+                            {!connectLoading  && !disconnectLoading && <FormButton value='K'></FormButton>}
+                        </div>
+
+                        {/* DISCONNECT BUTTONS */}
+                        <div>
+                            {connectLoading     && <button disabled className='form-button' onClick={handleDisconnect}>Connecting...</button>}
+                            {disconnectLoading  && <button disabled className='form-button' onClick={handleDisconnect}>Disconnecting...</button>}
+                            {!connectLoading    && !disconnectLoading && <button disabled className='form-button' onClick={handleDisconnect}> Disconnect</button>}
+                        </div>
+                        
+                    </div>
+
                 </form>
 
             </div>
@@ -85,7 +106,6 @@ const Connection = () => {
                 {disconnectLoading && client && <div><p>Disconnecting from server...</p></div>}
                 {client && <Client/>} 
             </div>
-
         </div>
     )
 }
